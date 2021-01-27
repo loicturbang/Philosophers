@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:44:40 by user42            #+#    #+#             */
-/*   Updated: 2021/01/27 15:44:59 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/27 16:44:46 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ void			ft_putnbr_ull(unsigned long long n)
 	write(1, &mod, 1);
 }
 
-void			ft_putstr(char *str)
+void			ft_putstr_fd(char *str, int fd)
 {
 	if (str)
-		write(1, str, ft_strlen(str));
+		write(fd, str, ft_strlen(str));
 }
 
 void			ft_putnbr(int n)

@@ -6,11 +6,11 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/27 15:33:30 by user42            #+#    #+#              #
-#    Updated: 2021/01/27 15:47:23 by user42           ###   ########.fr        #
+#    Updated: 2021/01/27 16:44:11 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= philo_one.c philo_one_utils.c utils.c
+SRCS		= $(addprefix srcs/, philo_one.c print.c utils.c)
 
 OBJS		= ${SRCS:.c=.o}
 
@@ -18,7 +18,9 @@ NAME		= philo_one
 
 CC			= gcc
 
-CFLAGS		= -Wall -Werror -Wextra
+INCLUDES	= ./includes/
+
+CFLAGS		= -Wall -Werror -Wextra -I ${INCLUDES}
 
 RM			= rm -f
 
