@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/01/27 16:33:43 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/27 17:10:51 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,18 @@
 # define THINK 2
 # define FORK 3
 # define DEAD 4
+# define ARGU_ERROR 1
+# define NO_NUM_INT 2
 
 /*
 ** s_philo
 */
 
-typedef struct	s_philo
+typedef struct		s_philo
 {
-	int			status;
-	int			nb_eat;
-}				t_philo;
+	int				status;
+	int				nb_eat;
+}					t_philo;
 
 /*
 ** s_philo_one
@@ -54,17 +56,24 @@ typedef struct		s_philo_one
 **		UTILS
 */
 
-unsigned int	ft_strlen(const char *s);
-char			*ft_strdup(const char *src);
-void			ft_putnbr_ull(unsigned long long n);
-void			ft_putstr_fd(char *str, int fd);
-void			ft_putnbr(int n);
+unsigned int		ft_strlen(const char *s);
+char				*ft_strdup(const char *src);
+void				ft_putnbr_ull(unsigned long n);
+void				ft_putstr_fd(char *str, int fd);
+void				ft_putnbr(int n);
+int					ft_atoi(const char *str);
+
+/*
+**		PARSING
+*/
+
+int					parsing_argu(int argc, char **argv, t_philo_one *philos);
 
 /*
 **		PRINTING
 */
 
-void			print_status(unsigned long long ms, int philo_id, int status);
-int				show_error(void);
+void				print_status(unsigned long ms, int philo_id, int status);
+int					argument_error(int error);
 
 #endif

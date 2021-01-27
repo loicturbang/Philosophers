@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:44:40 by user42            #+#    #+#             */
-/*   Updated: 2021/01/27 16:44:46 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/27 16:52:38 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ char			*ft_strdup(const char *src)
 	return (string);
 }
 
-void			ft_putnbr_ull(unsigned long long n)
+void			ft_putnbr_ull(unsigned long n)
 {
-	unsigned long long		div;
-	char					mod;
+	unsigned long		div;
+	char				mod;
 
 	div = n / 10;
 	mod = n % 10;
