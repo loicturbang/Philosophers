@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:26:54 by user42            #+#    #+#             */
-/*   Updated: 2021/01/27 17:14:22 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/28 09:44:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,3 +43,12 @@ int				argument_error(int error)
 	return (error);
 }
 
+void			debug(t_philo_one *philo_one)
+{
+	printf("Philo one :\n\n");
+	printf("nb_philo: %d\n", philo_one->nb_philos);
+	printf("tt_die %d\n", philo_one->tt_die);
+	printf("tt_eat %d\n", philo_one->tt_eat);
+	printf("tt_sleep %d\n", philo_one->tt_sleep);
+	printf("nb_eat %d\n", philo_one->must_eat_nb);
+}

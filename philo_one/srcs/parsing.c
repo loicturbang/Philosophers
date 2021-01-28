@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:40:29 by user42            #+#    #+#             */
-/*   Updated: 2021/01/27 17:14:26 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/28 09:40:49 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,23 @@ int			is_num(char *str)
 	return (1);
 }
 
-int			parsing_argu(int argc, char **argv, t_philo_one *philos)
+int			parsing_argu(int argc, char **argv, t_philo_one *philo_one)
 {
 	int i;
 
-	(void)philos;
-	i = 1;
-	while (argv[i] && i < argc)
+	i = 0;
+	while (argv[++i] && i < argc)
 	{
 		if (is_num(argv[i]) == 0)
 			return (argument_error(NO_NUM_INT));
-		i++;
 	}
+	philo_one->nb_philos = ft_atoi(argv[1]);
+	philo_one->tt_die = ft_atoi(argv[2]);
+	philo_one->tt_eat = ft_atoi(argv[3]);
+	philo_one->tt_sleep = ft_atoi(argv[4]);
+	if (argc == 6)
+		philo_one->must_eat_nb = ft_atoi(argv[5]);
+	else
+		philo_one->must_eat_nb = -1;
 	return (0);
 }

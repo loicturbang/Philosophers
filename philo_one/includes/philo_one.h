@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/01/27 17:10:51 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/28 09:44:07 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,11 @@ int					parsing_argu(int argc, char **argv, t_philo_one *philos);
 
 void				print_status(unsigned long ms, int philo_id, int status);
 int					argument_error(int error);
+
+/*
+**		DEBUG
+*/
+
+void				debug(t_philo_one *philo_one);
 
 #endif
