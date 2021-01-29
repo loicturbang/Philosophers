@@ -6,18 +6,18 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/27 15:33:30 by user42            #+#    #+#              #
-#    Updated: 2021/01/27 17:15:41 by user42           ###   ########.fr        #
+#    Updated: 2021/01/28 10:37:56 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS		= $(addprefix srcs/, philo_one.c print.c utils.c parsing.c \
-				ft_atoi.c)
+				ft_atoi.c get_time.c)
 
 OBJS		= ${SRCS:.c=.o}
 
 NAME		= philo_one
 
-CC			= gcc
+CC			= gcc -pthread
 
 INCLUDES	= ./includes/
 

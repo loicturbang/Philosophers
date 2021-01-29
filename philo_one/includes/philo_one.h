@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/01/28 09:44:07 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/28 14:12:06 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ typedef struct		s_philo
 {
 	int				status;
 	int				nb_eat;
+	struct timeval	time_start;
+	struct timeval	time_actual;
+	pthread_t		th;
+	pthread_mutex_t	mutex;
 }					t_philo;
 
 /*
@@ -50,6 +54,8 @@ typedef struct		s_philo_one
 	int				must_eat_nb;
 	int				nb_philos;
 	struct s_philo	*philos;
+	pthread_t		th_death;
+	int				id;
 }					t_philo_one;
 
 /*
@@ -75,6 +81,12 @@ int					parsing_argu(int argc, char **argv, t_philo_one *philos);
 
 void				print_status(unsigned long ms, int philo_id, int status);
 int					argument_error(int error);
+
+/*
+**		TIME
+*/
+
+unsigned long		get_delta_time(t_philo *philo);
 
 /*
 **		DEBUG
