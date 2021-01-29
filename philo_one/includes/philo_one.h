@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/01/28 14:12:06 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/29 12:58:27 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,12 @@ typedef struct		s_philo
 {
 	int				status;
 	int				nb_eat;
+	int				id;
 	struct timeval	time_start;
 	struct timeval	time_actual;
 	pthread_t		th;
 	pthread_mutex_t	mutex;
+	struct s_philo_one *p;
 }					t_philo;
 
 /*
@@ -53,9 +55,9 @@ typedef struct		s_philo_one
 	int				tt_sleep;
 	int				must_eat_nb;
 	int				nb_philos;
-	struct s_philo	*philos;
+	struct s_philo	**philos;
 	pthread_t		th_death;
-	int				id;
+	int				*id;
 }					t_philo_one;
 
 /*

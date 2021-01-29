@@ -6,11 +6,25 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:00 by user42            #+#    #+#             */
-/*   Updated: 2021/01/29 10:31:13 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/29 15:11:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
+
+void		wait_ms(unsigned long ms_wait, t_philo *p)
+{
+	unsigned long start_time;
+	unsigned long actual_time;
+
+	start_time = get_delta_time(p);
+	actual_time = start_time;
+	while (actual_time - start_time < ms_wait)
+	{
+		usleep(250);
+		actual_time = get_delta_time(p);
+	}
+}
 
 /*
 ** Init date
@@ -20,15 +34,18 @@
 
 void	*init_philo(void *arg)
 {
+	t_philo *philo;
 	t_philo_one *p;
 
-	p = (t_philo_one *)arg;
-	pthread_mutex_lock(&p->philos[p->id].mutex);
-	pthread_mutex_lock(&p->philos[p->id + 1 % p->nb_philos].mutex);
-	printf("Je mange\n");
-	usleep(1000000);
-	pthread_mutex_unlock(&p->philos[p->id].mutex);
-	pthread_mutex_unlock(&p->philos[p->id + 1 % p->nb_philos].mutex); //avant sleep
+	philo = (t_philo *)arg;
+	p = philo->p;
+	pthread_mutex_lock(&philo->mutex);
+	//printf("p_id %d modulo %d nb_philo %d\n", (philo->id) + 1, (philo->id + 1) % p->nb_philos, p->nb_philos);
+	pthread_mutex_lock(&p->philos[(philo->id + 1) % p->nb_philos]->mutex);
+	print_status(get_delta_time(philo), philo->id, EAT);
+	wait_ms(1000, philo);
+	pthread_mutex_unlock(&philo->mutex);
+	pthread_mutex_unlock(&p->philos[(philo->id + 1) % p->nb_philos]->mutex); //avant sleep
 	return (NULL);
 }
 
@@ -46,9 +63,19 @@ int		init_create_threads(t_philo_one *p)
 	i = -1;
 	while (++i < p->nb_philos)
 	{
-		p->id = i;
-		pthread_mutex_init(&p->philos[i].mutex, NULL);
-		if (pthread_create(&p->philos[i].th, NULL, &init_philo, p) != 0)
+		p->philos[i] = malloc(sizeof(t_philo));
+		pthread_mutex_init(&p->philos[i]->mutex, NULL);
+		p->philos[i]->p = p;
+		p->philos[i]->id = i;
+		get_delta_time(p->philos[i]);
+	}
+	i = -1;
+	while (++i < p->nb_philos)
+	{
+		p->id = malloc(sizeof(int));
+		(*p->id) = i;
+		//printf("philos id %d %d\n", i, p->philos[i]->id);
+		if (pthread_create(&p->philos[i]->th, NULL, &init_philo, p->philos[i]) != 0)
 			return (-1);
 	}
 	if (pthread_create(&p->th_death, NULL, &init_check_death, NULL) != 0)
@@ -56,7 +83,7 @@ int		init_create_threads(t_philo_one *p)
 	i = -1;
 	while (++i < p->nb_philos)
 	{
-		if (pthread_join(p->philos[i].th, NULL) != 0)
+		if (pthread_join(p->philos[i]->th, NULL) != 0)
 			return (-1);
 	}
 	if (pthread_join(p->th_death, NULL) != 0)
