@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:26:54 by user42            #+#    #+#             */
-/*   Updated: 2021/02/01 09:22:18 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/01 09:30:25 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char			*get_status(int status)
 {
 	char	*str;
 
+	str = NULL;
 	if (status == SLEEP)
 		str = ft_strdup(" is sleeping\n");
 	else if (status == EAT)
