@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/01/29 12:58:27 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/01 09:22:27 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ typedef struct		s_philo_one
 	int				nb_philos;
 	struct s_philo	**philos;
 	pthread_t		th_death;
-	int				*id;
 }					t_philo_one;
 
 /*
@@ -70,6 +69,8 @@ void				ft_putnbr_ull(unsigned long n);
 void				ft_putstr_fd(char *str, int fd);
 void				ft_putnbr(int n);
 int					ft_atoi(const char *str);
+char				*ft_itoa(unsigned long num);
+char				*ft_strjoin(char const *s1, char const *s2);
 
 /*
 **		PARSING
@@ -81,8 +82,8 @@ int					parsing_argu(int argc, char **argv, t_philo_one *philos);
 **		PRINTING
 */
 
-void				print_status(unsigned long ms, int philo_id, int status);
 int					argument_error(int error);
+void				print_status(unsigned long ms, int philo_id, int status);
 
 /*
 **		TIME
@@ -95,5 +96,11 @@ unsigned long		get_delta_time(t_philo *philo);
 */
 
 void				debug(t_philo_one *philo_one);
+
+/*
+**		TMP
+*/
+
+int					ft_count_num(unsigned long n);
 
 #endif

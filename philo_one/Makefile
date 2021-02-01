@@ -6,14 +6,17 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/27 15:33:30 by user42            #+#    #+#              #
-#    Updated: 2021/01/28 10:37:56 by user42           ###   ########.fr        #
+#    Updated: 2021/02/01 09:05:21 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= $(addprefix srcs/, philo_one.c print.c utils.c parsing.c \
-				ft_atoi.c get_time.c)
+SRCS		= $(addprefix srcs/, philo_one.c print.c parsing.c get_time.c)
+UTILS		= $(addprefix srcs/utils/, utils.c ft_atoi.c ft_itoa.c ft_strjoin.c)
 
-OBJS		= ${SRCS:.c=.o}
+PHILO		=  $(SRCS)			\
+			   $(UTILS)			\
+
+OBJS		= ${PHILO:.c=.o}
 
 NAME		= philo_one
 

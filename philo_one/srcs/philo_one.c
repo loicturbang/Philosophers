@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:00 by user42            #+#    #+#             */
-/*   Updated: 2021/01/29 15:11:14 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/01 09:24:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	*init_philo(void *arg)
 	pthread_mutex_lock(&p->philos[(philo->id + 1) % p->nb_philos]->mutex);
 	print_status(get_delta_time(philo), philo->id, EAT);
 	wait_ms(1000, philo);
+	print_status(get_delta_time(philo), philo->id, SLEEP);
 	pthread_mutex_unlock(&philo->mutex);
 	pthread_mutex_unlock(&p->philos[(philo->id + 1) % p->nb_philos]->mutex); //avant sleep
 	return (NULL);
@@ -72,11 +73,9 @@ int		init_create_threads(t_philo_one *p)
 	i = -1;
 	while (++i < p->nb_philos)
 	{
-		p->id = malloc(sizeof(int));
-		(*p->id) = i;
-		//printf("philos id %d %d\n", i, p->philos[i]->id);
 		if (pthread_create(&p->philos[i]->th, NULL, &init_philo, p->philos[i]) != 0)
 			return (-1);
+		usleep(19);
 	}
 	if (pthread_create(&p->th_death, NULL, &init_check_death, NULL) != 0)
 		return (-1);
@@ -104,6 +103,11 @@ int		main(int argc, char **argv)
 		return (NO_NUM_INT);
 	}
 	p->philos = malloc(sizeof(t_philo) * p->nb_philos);
+	/*
+	printf("Num : %d\n", ft_count_num(1223334444));
+	printf("Itoa : %s\n", ft_itoa(1223334444));
+	print_status(1000, 1, SLEEP);
+	*/
 	init_create_threads(p);
 	free(p);
 	return (0);

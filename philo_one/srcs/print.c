@@ -6,27 +6,50 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:26:54 by user42            #+#    #+#             */
-/*   Updated: 2021/01/29 13:43:32 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/01 09:22:18 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
 
+char			*get_status(int status)
+{
+	char	*str;
+
+	if (status == SLEEP)
+		str = ft_strdup(" is sleeping\n");
+	else if (status == EAT)
+		str = ft_strdup(" is eating\n");
+	else if (status == FORK)
+		str = ft_strdup(" has taken a fork\n");
+	else if (status == THINK)
+		str = ft_strdup(" is thinking\n");
+	else if (status == DEAD)
+		str = ft_strdup(" died\n");
+	if (!str)
+		return (NULL);
+	return (str);
+}
+
 void			print_status(unsigned long ms, int philo_id, int status)
 {
-	ft_putnbr_ull(ms);
-	write(STDOUT_FILENO, "ms ", 3);
-	ft_putnbr(philo_id);
-	if (status == SLEEP)
-		ft_putstr_fd(" is sleeping\n", STDOUT_FILENO);
-	else if (status == EAT)
-		ft_putstr_fd(" is eating\n", STDOUT_FILENO);
-	else if (status == FORK)
-		ft_putstr_fd(" has taken a fork\n", STDOUT_FILENO);
-	else if (status == THINK)
-		ft_putstr_fd(" is thinking\n", STDOUT_FILENO);
-	else if (status == DEAD)
-		ft_putstr_fd(" died\n", STDOUT_FILENO);
+	char	*str;
+	char	*str2;
+	char	*tmp;
+
+	str = ft_itoa(ms);
+	str2 = ft_strjoin(str, "ms ");
+	free(str);
+	str = ft_itoa((unsigned long)philo_id);
+	tmp = ft_strjoin(str2, str);
+	free(str2);
+	free(str);
+	str2 = get_status(status);
+	str = ft_strjoin(tmp, str2);
+	free(tmp);
+	free(str2);
+	write(1, str, ft_strlen(str));
+	free(str);
 }
 
 int				argument_error(int error)
