@@ -6,25 +6,11 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:00 by user42            #+#    #+#             */
-/*   Updated: 2021/02/01 09:24:28 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/01 10:01:38 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
-
-void		wait_ms(unsigned long ms_wait, t_philo *p)
-{
-	unsigned long start_time;
-	unsigned long actual_time;
-
-	start_time = get_delta_time(p);
-	actual_time = start_time;
-	while (actual_time - start_time < ms_wait)
-	{
-		usleep(250);
-		actual_time = get_delta_time(p);
-	}
-}
 
 /*
 ** Init date
@@ -40,13 +26,14 @@ void	*init_philo(void *arg)
 	philo = (t_philo *)arg;
 	p = philo->p;
 	pthread_mutex_lock(&philo->mutex);
-	//printf("p_id %d modulo %d nb_philo %d\n", (philo->id) + 1, (philo->id + 1) % p->nb_philos, p->nb_philos);
 	pthread_mutex_lock(&p->philos[(philo->id + 1) % p->nb_philos]->mutex);
 	print_status(get_delta_time(philo), philo->id, EAT);
-	wait_ms(1000, philo);
-	print_status(get_delta_time(philo), philo->id, SLEEP);
+	wait_ms(p->tt_eat, philo);
 	pthread_mutex_unlock(&philo->mutex);
 	pthread_mutex_unlock(&p->philos[(philo->id + 1) % p->nb_philos]->mutex); //avant sleep
+	print_status(get_delta_time(philo), philo->id, SLEEP);
+	wait_ms(p->tt_sleep, philo);
+	print_status(get_delta_time(philo), philo->id, THINK);
 	return (NULL);
 }
 

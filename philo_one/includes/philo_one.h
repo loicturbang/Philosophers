@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/01 09:22:27 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/01 09:36:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void				print_status(unsigned long ms, int philo_id, int status);
 */
 
 unsigned long		get_delta_time(t_philo *philo);
+void				wait_ms(unsigned long ms_wait, t_philo *p);
 
 /*
 **		DEBUG
