@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:00 by user42            #+#    #+#             */
-/*   Updated: 2021/02/01 11:22:53 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/01 12:46:05 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int		init_create_threads(t_philo_one *p)
 		get_delta_time(p->philos[i]);
 		set_starve_time(p->philos[i], INIT);
 	}
+	pthread_mutex_init(&p->mutex_dead, NULL);
 	i = -1;
 	while (++i < p->nb_philos)
 	{
