@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:00 by user42            #+#    #+#             */
-/*   Updated: 2021/02/01 13:32:06 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/01 15:12:56 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void	*init_check_death(void *arg)
 		i = -1;
 		while (p->philos[++i] && i < p->nb_philos)
 		{
-			if (get_delta_time(p->philos[i]) - p->philos[i]->last_eat >= (unsigned long)p->tt_die)
+			if (p->philos[i]->last_eat != 0 && get_delta_time(p->philos[i]) - p->philos[i]->last_eat >= (unsigned long)p->tt_die)
 			{
-				//printf("starve_t_delta %lu tt_die %d\n", p->philos[i]->starve_t_delta, p->tt_die);
+				printf("starve_t_delta %lu tt_die %d\n", get_delta_time(p->philos[i]) - p->philos[i]->last_eat, p->tt_die);
 				print_status(get_delta_time(p->philos[i]), p->philos[i]->id, DEAD);
 				pthread_mutex_unlock(&p->mutex_dead);
 				return (NULL);
@@ -76,6 +76,7 @@ int		init_create_threads(t_philo_one *p)
 		p->philos[i]->p = p;
 		p->philos[i]->id = i;
 		get_delta_time(p->philos[i]);
+		p->philos[i]->last_eat = 0;
 	}
 	pthread_mutex_init(&p->mutex_dead, NULL);
 	i = -1;
