@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:00 by user42            #+#    #+#             */
-/*   Updated: 2021/02/01 10:11:41 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/01 10:36:26 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,12 @@ void	*init_philo(void *arg)
 	pthread_mutex_lock(&philo->mutex);
 	pthread_mutex_lock(&p->philos[(philo->id + 1) % p->nb_philos]->mutex);
 	print_status(get_delta_time(philo), philo->id, EAT);
+	set_starve_time(philo, INIT);
+	printf("starve time | philo_id : %d | bef eat: %lu\n", philo->id, philo->starve_t_delta);
 	wait_ms(p->tt_eat, philo);
+	//init delta time
+	set_starve_time(philo, DELTA);
+	printf("starve time | philo_id : %d | aft eat: %lu\n", philo->id, philo->starve_t_delta);
 	pthread_mutex_unlock(&philo->mutex);
 	pthread_mutex_unlock(&p->philos[(philo->id + 1) % p->nb_philos]->mutex); //avant sleep
 	print_status(get_delta_time(philo), philo->id, SLEEP);
@@ -56,6 +61,7 @@ int		init_create_threads(t_philo_one *p)
 		p->philos[i]->p = p;
 		p->philos[i]->id = i;
 		get_delta_time(p->philos[i]);
+		set_starve_time(p->philos[i], INIT);
 	}
 	i = -1;
 	while (++i < p->nb_philos)

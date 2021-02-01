@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/01 09:36:28 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/01 10:30:56 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define DEAD 4
 # define ARGU_ERROR 1
 # define NO_NUM_INT 2
+# define INIT 1
+# define DELTA 2
 
 /*
 ** s_philo
@@ -36,6 +38,8 @@ typedef struct		s_philo
 	int				status;
 	int				nb_eat;
 	int				id;
+	unsigned long	starve_t_start;
+	unsigned long	starve_t_delta;
 	struct timeval	time_start;
 	struct timeval	time_actual;
 	pthread_t		th;
@@ -91,6 +95,7 @@ void				print_status(unsigned long ms, int philo_id, int status);
 
 unsigned long		get_delta_time(t_philo *philo);
 void				wait_ms(unsigned long ms_wait, t_philo *p);
+void				set_starve_time(t_philo *philo, int type);
 
 /*
 **		DEBUG
