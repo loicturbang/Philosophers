@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/01 11:17:14 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/01 13:28:13 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ typedef struct		s_philo
 	int				status;
 	int				nb_eat;
 	int				id;
-	unsigned long	starve_t_start;
-	unsigned long	starve_t_delta;
+	unsigned long	last_eat;
 	struct timeval	time_start;
 	struct timeval	time_actual;
 	pthread_t		th;
@@ -96,7 +95,6 @@ void				print_status(unsigned long ms, int philo_id, int status);
 
 unsigned long		get_delta_time(t_philo *philo);
 void				wait_ms(unsigned long ms_wait, t_philo *p);
-void				set_starve_time(t_philo *philo, int type);
 
 /*
 **		DEBUG

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 09:49:53 by user42            #+#    #+#             */
-/*   Updated: 2021/02/01 11:10:57 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/01 13:28:34 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,6 @@ unsigned long		get_delta_time(t_philo *philo)
 	return (get_ms_time(philo->time_actual) - start_time);
 }
 
-void				set_starve_time(t_philo *philo, int type)
-{
-	struct timeval	t_val;
-
-	if (type == INIT)
-	{
-		gettimeofday(&t_val, NULL);
-		philo->starve_t_start = get_ms_time(t_val);
-		philo->starve_t_delta = 0;
-	}
-	else if (type == DELTA)
-	{
-		gettimeofday(&t_val, NULL);
-		philo->starve_t_delta = get_ms_time(t_val) - philo->starve_t_start;
-	}
-}
-
 void				wait_ms(unsigned long ms_wait, t_philo *p)
 {
 	unsigned long start_time;
@@ -57,7 +40,6 @@ void				wait_ms(unsigned long ms_wait, t_philo *p)
 	actual_time = start_time;
 	while (actual_time - start_time < ms_wait)
 	{
-		set_starve_time(p, DELTA);
 		usleep(250);
 		actual_time = get_delta_time(p);
 	}
