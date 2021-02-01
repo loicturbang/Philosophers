@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/01 10:30:56 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/01 11:17:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct		s_philo_one
 	int				nb_philos;
 	struct s_philo	**philos;
 	pthread_t		th_death;
+	pthread_mutex_t mutex_dead;
 }					t_philo_one;
 
 /*
