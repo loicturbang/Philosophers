@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:00 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 10:08:29 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 10:32:54 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	*init_check_death(void *arg)
 				pthread_mutex_unlock(&p->mutex_dead);
 				return (NULL);
 			}
+			//printf("must_eat nb %d | finish_eat %d | nb_philos %d\n", p->must_eat_nb, finish_eat, p->nb_philos);
 			if (/*p->philos[i]->last_eat != 0 && */ (get_delta_time(p->philos[i]) - p->philos[i]->last_eat) >= (unsigned long)p->tt_die)
 			{
 				printf("starve_t_delta %lu tt_die %d\n", get_delta_time(p->philos[i]) - p->philos[i]->last_eat, p->tt_die);
@@ -88,6 +89,7 @@ int		init_create_threads(t_philo_one *p)
 		p->philos[i]->id = i;
 		get_delta_time(p->philos[i]);
 		p->philos[i]->last_eat = 0;
+		p->philos[i]->nb_eat = 0;
 	}
 	pthread_mutex_init(&p->mutex_dead, NULL);
 	i = -1;
@@ -95,7 +97,7 @@ int		init_create_threads(t_philo_one *p)
 	{
 		if (pthread_create(&p->philos[i]->th, NULL, &init_philo, p->philos[i]) != 0)
 			return (-1);
-		//usleep(19); (with 200 philos -> 9ms latence)
+		usleep(5); //(with 200 philos -> 9ms latence)
 	}
 	if (pthread_create(&p->th_death, NULL, &init_check_death, p) != 0)
 		return (-1);
