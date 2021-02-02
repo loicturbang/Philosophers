@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 13:24:01 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 13:27:54 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define PHILO_ONE_H
 
 # include <stdlib.h>
-# include <stdio.h> //remove
 # include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
