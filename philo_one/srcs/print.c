@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:26:54 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 11:03:45 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 11:24:55 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ char			*get_status(int status)
 	return (str);
 }
 
-void			print_status(unsigned long ms, int philo_id, int status, t_philo_one *p)
+void			print_status(unsigned long ms, int philo_id, int status, \
+															t_philo_one *p)
 {
 	char	*str;
 	char	*str2;

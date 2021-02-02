@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:00 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 11:13:59 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/02 11:39:59 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 void	*init_philo(void *arg)
 {
-	t_philo *philo;
+	t_philo		*philo;
 	t_philo_one *p;
 
 	philo = (t_philo *)arg;
@@ -35,12 +35,33 @@ void	*init_philo(void *arg)
 		wait_ms(p->tt_eat, philo);
 		philo->nb_eat++;
 		pthread_mutex_unlock(&philo->mutex);
-		pthread_mutex_unlock(&p->philos[(philo->id + 1) % p->nb_philos]->mutex); //avant sleep
+		pthread_mutex_unlock(&p->philos[(philo->id + 1) % p->nb_philos]->mutex);
 		print_status(get_delta_time(philo), philo->id, SLEEP, p);
 		wait_ms(p->tt_sleep, philo);
 		print_status(get_delta_time(philo), philo->id, THINK, p);
 	}
 	return (NULL);
+}
+
+int		check_eat_death(t_philo_one *p, int *finish_eat, int i)
+{
+	if (p->must_eat_nb != -1 && (p->philos[i]->nb_eat >= p->must_eat_nb))
+		(*finish_eat)++;
+	if (*finish_eat == p->nb_philos)
+	{
+		pthread_mutex_lock(&p->mutex_print);
+		pthread_mutex_unlock(&p->mutex_dead);
+		return (1);
+	}
+	if ((get_delta_time(p->philos[i]) - p->philos[i]->last_eat) >= \
+											(unsigned long)p->tt_die)
+	{
+		print_status(get_delta_time(p->philos[i]), p->philos[i]->id, DEAD, p);
+		pthread_mutex_lock(&p->mutex_print);
+		pthread_mutex_unlock(&p->mutex_dead);
+		return (1);
+	}
+	return (0);
 }
 
 void	*init_check_death(void *arg)
@@ -56,30 +77,15 @@ void	*init_check_death(void *arg)
 		finish_eat = 0;
 		while (p->philos[++i] && i < p->nb_philos)
 		{
-			if (p->must_eat_nb != -1 && (p->philos[i]->nb_eat >= p->must_eat_nb))
-				finish_eat++;
-			if (finish_eat == p->nb_philos)
-			{
-				pthread_mutex_lock(&p->mutex_print);
-				pthread_mutex_unlock(&p->mutex_dead);
+			if (check_eat_death(p, &finish_eat, i) == 1)
 				return (NULL);
-			}
-			//printf("must_eat nb %d | finish_eat %d | nb_philos %d\n", p->must_eat_nb, finish_eat, p->nb_philos);
-			if (/*p->philos[i]->last_eat != 0 && */ (get_delta_time(p->philos[i]) - p->philos[i]->last_eat) >= (unsigned long)p->tt_die)
-			{
-				//printf("starve_t_delta %lu tt_die %d\n", get_delta_time(p->philos[i]) - p->philos[i]->last_eat, p->tt_die);
-				print_status(get_delta_time(p->philos[i]), p->philos[i]->id, DEAD, p);
-				pthread_mutex_lock(&p->mutex_print);
-				pthread_mutex_unlock(&p->mutex_dead);
-				return (NULL);
-			}
 			usleep(19);
 		}
 	}
 	return (NULL);
 }
 
-int		init_create_threads(t_philo_one *p)
+int		init_structure(t_philo_one *p)
 {
 	int i;
 
@@ -96,10 +102,20 @@ int		init_create_threads(t_philo_one *p)
 	}
 	pthread_mutex_init(&p->mutex_dead, NULL);
 	pthread_mutex_init(&p->mutex_print, NULL);
+	return (0);
+}
+
+int		init_create_threads(t_philo_one *p)
+{
+	int i;
+
+	if (init_structure(p) != 0)
+		return (-1);
 	i = -1;
 	while (++i < p->nb_philos)
 	{
-		if (pthread_create(&p->philos[i]->th, NULL, &init_philo, p->philos[i]) != 0)
+		if (pthread_create(&p->philos[i]->th, NULL, &init_philo, \
+												p->philos[i]) != 0)
 			return (-1);
 		usleep(5); //(with 200 philos -> 9ms latence)
 	}
@@ -111,15 +127,7 @@ int		init_create_threads(t_philo_one *p)
 	pthread_mutex_destroy(&p->mutex_print);
 	i = -1;
 	while (++i < p->nb_philos)
-		pthread_mutex_destroy(&p->philos[i]->mutex);/*
-	i = -1;
-	while (++i < p->nb_philos)
-	{
-		if (pthread_join(p->philos[i]->th, NULL) != 0)
-			return (-1);
-	}
-	if (pthread_join(p->th_death, NULL) != 0)
-		return (-1);*/
+		pthread_mutex_destroy(&p->philos[i]->mutex);
 	return (0);
 }
 
@@ -141,11 +149,6 @@ int		main(int argc, char **argv)
 		return (ZERO_NUM);
 	}
 	p->philos = malloc(sizeof(t_philo) * p->nb_philos);
-	/*
-	printf("Num : %d\n", ft_count_num(1223334444));
-	printf("Itoa : %s\n", ft_itoa(1223334444));
-	print_status(1000, 1, SLEEP);
-	*/
 	init_create_threads(p);
 	free(p);
 	return (0);
