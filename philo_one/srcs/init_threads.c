@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 13:33:27 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 21:25:08 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int		init_structure(t_p *p)
 	int i;
 
 	i = -1;
+	p->life = 1;
 	while (++i < p->nb_philos)
 	{
 		p->philos[i] = malloc(sizeof(t_philo));
