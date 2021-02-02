@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:40:29 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 11:25:06 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 13:33:27 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int			is_num(char *str)
 	return (1);
 }
 
-int			parsing_argu(int argc, char **argv, t_philo_one *philo_one)
+int			parsing_argu(int argc, char **argv, t_p *philo_one)
 {
 	int i;
 

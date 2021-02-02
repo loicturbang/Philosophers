@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:49 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 12:39:01 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 13:35:31 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	*init_philo(void *arg)
 {
 	t_philo		*philo;
-	t_philo_one *p;
+	t_p			*p;
 
 	philo = (t_philo *)arg;
 	p = philo->p;

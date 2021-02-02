@@ -6,13 +6,13 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:00 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 13:24:19 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 13:33:27 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
 
-int		init_parse(t_philo_one *p, int argc, char **argv)
+int		init_parse(t_p *p, int argc, char **argv)
 {
 	if (parsing_argu(argc, argv, p) == NO_NUM_INT)
 	{
@@ -35,11 +35,11 @@ int		init_parse(t_philo_one *p, int argc, char **argv)
 
 int		main(int argc, char **argv)
 {
-	t_philo_one *p;
+	t_p *p;
 
 	if (!(argc >= 5 && argc <= 6))
 		return (argument_error(ARGU_ERROR));
-	p = malloc(sizeof(t_philo_one));
+	p = malloc(sizeof(t_p));
 	if (!p)
 		return (MALLOC_ERROR);
 	if (init_parse(p, argc, argv) != 0)

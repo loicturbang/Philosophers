@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:26:54 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 12:28:48 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 13:35:55 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char			*get_status(int status)
 }
 
 void			print_status(unsigned long ms, int philo_id, int status, \
-															t_philo_one *p)
+															t_p *p)
 {
 	char	*str;
 	char	*str2;
@@ -71,14 +71,4 @@ int				argument_error(int error)
 		ft_putstr_fd("\nError - Use only num > 0 for nb_philo & nb_eat\n", \
 															STDERR_FILENO);
 	return (error);
-}
-
-void			debug(t_philo_one *philo_one)
-{
-	printf("Philo one :\n\n");
-	printf("nb_philo: %d\n", philo_one->nb_philos);
-	printf("tt_die %d\n", philo_one->tt_die);
-	printf("tt_eat %d\n", philo_one->tt_eat);
-	printf("tt_sleep %d\n", philo_one->tt_sleep);
-	printf("nb_eat %d\n", philo_one->must_eat_nb);
 }

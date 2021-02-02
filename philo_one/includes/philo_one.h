@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 13:27:54 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 13:35:49 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ typedef struct	s_philo
 	struct timeval		time_actual;
 	pthread_t			th;
 	pthread_mutex_t		mutex;
-	struct s_philo_one	*p;
+	struct s_p			*p;
 }				t_philo;
 
 /*
-** s_philo_one
+** s_p
 ** tt = time to
 */
 
-typedef struct	s_philo_one
+typedef struct	s_p
 {
 	int				tt_die;
 	int				tt_eat;
@@ -63,7 +63,7 @@ typedef struct	s_philo_one
 	pthread_t		th_death;
 	pthread_mutex_t mutex_dead;
 	pthread_mutex_t mutex_print;
-}				t_philo_one;
+}				t_p;
 
 /*
 **		PHILO
@@ -71,7 +71,7 @@ typedef struct	s_philo_one
 
 void			*init_check_death(void *arg);
 void			*init_philo(void *arg);
-int				init_create_threads(t_philo_one *p);
+int				init_create_threads(t_p *p);
 
 /*
 **		UTILS
@@ -90,7 +90,7 @@ char			*ft_strjoin(char const *s1, char const *s2);
 **		PARSING
 */
 
-int				parsing_argu(int argc, char **argv, t_philo_one *philos);
+int				parsing_argu(int argc, char **argv, t_p *philos);
 
 /*
 **		PRINTING
@@ -98,7 +98,7 @@ int				parsing_argu(int argc, char **argv, t_philo_one *philos);
 
 int				argument_error(int error);
 void			print_status(unsigned long ms, int philo_id, int status, \
-																t_philo_one *p);
+																	t_p *p);
 
 /*
 **		TIME
@@ -106,11 +106,5 @@ void			print_status(unsigned long ms, int philo_id, int status, \
 
 unsigned long	get_delta_time(t_philo *philo);
 void			wait_ms(unsigned long ms_wait, t_philo *p);
-
-/*
-**		DEBUG
-*/
-
-void			debug(t_philo_one *philo_one);
 
 #endif

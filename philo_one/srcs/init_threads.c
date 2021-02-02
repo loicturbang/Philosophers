@@ -6,13 +6,13 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 13:24:03 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 13:33:27 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
 
-int		check_malloc_free(t_philo *philo, t_philo_one *p, int i)
+int		check_malloc_free(t_philo *philo, t_p *p, int i)
 {
 	if (!philo)
 	{
@@ -27,7 +27,7 @@ int		check_malloc_free(t_philo *philo, t_philo_one *p, int i)
 	return (0);
 }
 
-int		init_structure(t_philo_one *p)
+int		init_structure(t_p *p)
 {
 	int i;
 
@@ -49,7 +49,7 @@ int		init_structure(t_philo_one *p)
 	return (0);
 }
 
-int		create_threads(t_philo_one *p)
+int		create_threads(t_p *p)
 {
 	int i;
 
@@ -66,7 +66,7 @@ int		create_threads(t_philo_one *p)
 	return (0);
 }
 
-int		init_create_threads(t_philo_one *p)
+int		init_create_threads(t_p *p)
 {
 	int i;
 
