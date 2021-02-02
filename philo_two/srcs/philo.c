@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:49 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 14:03:01 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 18:51:16 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ void	*init_philo(void *arg)
 
 	philo = (t_philo *)arg;
 	p = philo->p;
-	while (1)
+	while (p->life)
 	{
 		sem_wait(p->forks);
 		sem_wait(p->forks);
+		print_status(get_delta_time(philo), philo->id, FORK, p);
 		print_status(get_delta_time(philo), philo->id, FORK, p);
 		print_status(get_delta_time(philo), philo->id, EAT, p);
 		philo->last_eat = get_delta_time(philo);

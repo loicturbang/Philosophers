@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:26:54 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 14:07:12 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 18:40:50 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,25 @@ void			print_status(unsigned long ms, int philo_id, int status, \
 	char	*str;
 	char	*str2;
 	char	*tmp;
-
-	sem_wait(p->sem_print);
-	str = ft_itoa(ms);
-	str2 = ft_strjoin(str, "ms ");
-	free(str);
-	str = ft_itoa((unsigned long)(philo_id + 1));
-	tmp = ft_strjoin(str2, str);
-	free(str2);
-	free(str);
-	str2 = get_status(status);
-	str = ft_strjoin(tmp, str2);
-	free(tmp);
-	free(str2);
-	write(1, str, ft_strlen(str));
-	free(str);
-	sem_post(p->sem_print);
+	
+	if (p->life)
+	{
+		sem_wait(p->sem_print);
+		str = ft_itoa(ms);
+		str2 = ft_strjoin(str, "ms ");
+		free(str);
+		str = ft_itoa((unsigned long)(philo_id + 1));
+		tmp = ft_strjoin(str2, str);
+		free(str2);
+		free(str);
+		str2 = get_status(status);
+		str = ft_strjoin(tmp, str2);
+		free(tmp);
+		free(str2);
+		write(1, str, ft_strlen(str));
+		free(str);
+		sem_post(p->sem_print);
+	}
 }
 
 int				argument_error(int error)

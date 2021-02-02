@@ -6,11 +6,12 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 14:48:31 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/02 18:39:39 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_two.h"
+#include <stdio.h>
 
 int		check_malloc_free(t_philo *philo, t_p *p, int i)
 {
@@ -32,6 +33,7 @@ int		init_structure(t_p *p)
 	int i;
 
 	i = -1;
+	p->life = 1;
 	while (++i < p->nb_philos)
 	{
 		p->philos[i] = malloc(sizeof(t_philo));
@@ -46,9 +48,9 @@ int		init_structure(t_p *p)
 	sem_unlink("forks");
 	sem_unlink("dead");
 	sem_unlink("print");
-	p->forks = sem_open("forks", O_CREAT, 0600, p->nb_philos);
-	p->sem_dead = sem_open("dead", O_CREAT, 0600, 0);
-	p->sem_print = sem_open("print", O_CREAT, 0600, 1);
+	p->forks = sem_open("forks", O_CREAT | O_EXCL, 0644, p->nb_philos);
+	p->sem_dead = sem_open("dead", O_CREAT | O_EXCL, 0644, 0);
+	p->sem_print = sem_open("print", O_CREAT | O_EXCL, 0644, 1);
 	return (0);
 }
 
@@ -76,11 +78,15 @@ int		init_create_threads(t_p *p)
 	if (init_structure(p) != 0)
 		return (-1);
 	if (create_threads(p) != 0)
-		return (-1);	
+		return (-1);
 	sem_wait(p->sem_dead);
 	sem_close(p->sem_dead);
+	printf("1\n");
 	sem_close(p->sem_print);
+	printf("2\n");
+	sem_post(p->forks);
 	sem_close(p->forks);
+	printf("3\n");
 	i = -1;
 	while (++i < p->nb_philos)
 		free(p->philos[i]);

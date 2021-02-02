@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 14:45:22 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/02 18:41:13 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int		check_eat_death(t_p *p, int *finish_eat, int i)
 		(*finish_eat)++;
 	if (*finish_eat == p->nb_philos)
 	{
-		//sem_wait(p->sem_print);
+		p->life = 0;
+	//	sem_wait(p->sem_print);
 		sem_post(p->sem_dead);
 		return (1);
 	}
@@ -26,7 +27,8 @@ int		check_eat_death(t_p *p, int *finish_eat, int i)
 											(unsigned long)p->tt_die)
 	{
 		print_status(get_delta_time(p->philos[i]), p->philos[i]->id, DEAD, p);
-		//sem_wait(p->sem_print);
+		p->life = 0;
+	//	sem_wait(p->sem_print);
 		sem_post(p->sem_dead);
 		return (1);
 	}
