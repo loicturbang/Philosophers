@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 09:59:34 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 11:05:27 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct		s_philo_one
 	struct s_philo	**philos;
 	pthread_t		th_death;
 	pthread_mutex_t mutex_dead;
+	pthread_mutex_t mutex_print;
 }					t_philo_one;
 
 /*
@@ -88,7 +89,7 @@ int					parsing_argu(int argc, char **argv, t_philo_one *philos);
 */
 
 int					argument_error(int error);
-void				print_status(unsigned long ms, int philo_id, int status);
+void				print_status(unsigned long ms, int philo_id, int status, t_philo_one *p);
 
 /*
 **		TIME

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:00 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 10:32:54 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/02 11:04:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,17 @@ void	*init_philo(void *arg)
 	while (1)
 	{
 		pthread_mutex_lock(&philo->mutex);
+		//print_status(get_delta_time(philo), philo->id, FORK, p);
 		pthread_mutex_lock(&p->philos[(philo->id + 1) % p->nb_philos]->mutex);
-		print_status(get_delta_time(philo), philo->id, EAT);
+		print_status(get_delta_time(philo), philo->id, EAT, p);
 		philo->last_eat = get_delta_time(philo);
 		wait_ms(p->tt_eat, philo);
 		philo->nb_eat++;
 		pthread_mutex_unlock(&philo->mutex);
 		pthread_mutex_unlock(&p->philos[(philo->id + 1) % p->nb_philos]->mutex); //avant sleep
-		print_status(get_delta_time(philo), philo->id, SLEEP);
+		print_status(get_delta_time(philo), philo->id, SLEEP, p);
 		wait_ms(p->tt_sleep, philo);
-		print_status(get_delta_time(philo), philo->id, THINK);
+		print_status(get_delta_time(philo), philo->id, THINK, p);
 	}
 	return (NULL);
 }
@@ -59,6 +60,7 @@ void	*init_check_death(void *arg)
 				finish_eat++;
 			if (finish_eat == p->nb_philos)
 			{
+				pthread_mutex_lock(&p->mutex_print);
 				pthread_mutex_unlock(&p->mutex_dead);
 				return (NULL);
 			}
@@ -66,7 +68,8 @@ void	*init_check_death(void *arg)
 			if (/*p->philos[i]->last_eat != 0 && */ (get_delta_time(p->philos[i]) - p->philos[i]->last_eat) >= (unsigned long)p->tt_die)
 			{
 				printf("starve_t_delta %lu tt_die %d\n", get_delta_time(p->philos[i]) - p->philos[i]->last_eat, p->tt_die);
-				print_status(get_delta_time(p->philos[i]), p->philos[i]->id, DEAD);
+				print_status(get_delta_time(p->philos[i]), p->philos[i]->id, DEAD, p);
+				pthread_mutex_lock(&p->mutex_print);
 				pthread_mutex_unlock(&p->mutex_dead);
 				return (NULL);
 			}
@@ -92,6 +95,7 @@ int		init_create_threads(t_philo_one *p)
 		p->philos[i]->nb_eat = 0;
 	}
 	pthread_mutex_init(&p->mutex_dead, NULL);
+	pthread_mutex_init(&p->mutex_print, NULL);
 	i = -1;
 	while (++i < p->nb_philos)
 	{
@@ -104,6 +108,7 @@ int		init_create_threads(t_philo_one *p)
 	pthread_mutex_lock(&p->mutex_dead);
 	pthread_mutex_lock(&p->mutex_dead);
 	pthread_mutex_destroy(&p->mutex_dead);
+	pthread_mutex_destroy(&p->mutex_print);
 	i = -1;
 	while (++i < p->nb_philos)
 		pthread_mutex_destroy(&p->philos[i]->mutex);/*
