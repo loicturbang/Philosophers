@@ -6,11 +6,26 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:00 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 13:03:24 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 13:10:05 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
+
+int		check_malloc_free(t_philo *philo, t_philo_one *p, int i)
+{
+	if (!philo)
+	{
+		while (i >= 0)
+		{
+			free(p->philos[i]);
+			i--;
+		}
+		free(p->philos);
+		return (MALLOC_ERROR);
+	}
+	return (0);
+}
 
 int		init_structure(t_philo_one *p)
 {
@@ -20,6 +35,8 @@ int		init_structure(t_philo_one *p)
 	while (++i < p->nb_philos)
 	{
 		p->philos[i] = malloc(sizeof(t_philo));
+		if (check_malloc_free(p->philos[i], p, i) == MALLOC_ERROR)
+			return (MALLOC_ERROR);
 		pthread_mutex_init(&p->philos[i]->mutex, NULL);
 		p->philos[i]->p = p;
 		p->philos[i]->id = i;
