@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:26:54 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 11:24:55 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 12:28:48 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void			print_status(unsigned long ms, int philo_id, int status, \
 	str = ft_itoa(ms);
 	str2 = ft_strjoin(str, "ms ");
 	free(str);
-	str = ft_itoa((unsigned long)philo_id);
+	str = ft_itoa((unsigned long)(philo_id + 1));
 	tmp = ft_strjoin(str2, str);
 	free(str2);
 	free(str);
