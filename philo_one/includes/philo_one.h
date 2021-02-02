@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/01 13:28:13 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 09:59:34 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define DEAD 4
 # define ARGU_ERROR 1
 # define NO_NUM_INT 2
+# define ZERO_NUM 3
 # define INIT 1
 # define DELTA 2
 
