@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:00 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 12:42:12 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 12:51:17 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,11 @@ int		init_create_threads(t_philo_one *p)
 	pthread_mutex_destroy(&p->mutex_print);
 	i = -1;
 	while (++i < p->nb_philos)
+	{
 		pthread_mutex_destroy(&p->philos[i]->mutex);
+		free(p->philos[i]);
+	}
+	free(p->philos);
 	return (0);
 }
 
