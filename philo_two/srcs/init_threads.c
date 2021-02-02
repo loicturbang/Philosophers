@@ -6,12 +6,11 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 19:58:37 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/02 20:48:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_two.h"
-#include <stdio.h>
 
 int		check_malloc_free(t_philo *philo, t_p *p, int i)
 {

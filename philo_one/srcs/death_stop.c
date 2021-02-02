@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 13:35:20 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 20:49:51 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int		check_eat_death(t_p *p, int *finish_eat, int i)
 		(*finish_eat)++;
 	if (*finish_eat == p->nb_philos)
 	{
+		printf("finish_eat = %d | nb_philos = %d\n", *finish_eat, p->nb_philos);
 		pthread_mutex_lock(&p->mutex_print);
 		pthread_mutex_unlock(&p->mutex_dead);
 		return (1);
