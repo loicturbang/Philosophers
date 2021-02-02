@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:00 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 12:51:17 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 12:59:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ int		init_create_threads(t_philo_one *p)
 	return (0);
 }
 
-int		main(int argc, char **argv)
+int		init_parse(t_philo_one *p, int argc, char **argv)
 {
-	t_philo_one *p;
-
 	if (!(argc >= 5 && argc <= 6))
 		return (argument_error(ARGU_ERROR));
 	p = malloc(sizeof(t_philo_one));
+	if (!p)
+		return (MALLOC_ERROR);
 	if (parsing_argu(argc, argv, p) == NO_NUM_INT)
 	{
 		free(p);
@@ -80,6 +80,20 @@ int		main(int argc, char **argv)
 		return (ZERO_NUM);
 	}
 	p->philos = malloc(sizeof(t_philo) * p->nb_philos);
+	if (!p->philos)
+	{
+		free(p);
+		return (MALLOC_ERROR);
+	}
+	return (0);
+}
+
+int		main(int argc, char **argv)
+{
+	t_philo_one *p;
+
+	if (init_parse(p, argc, argv) != 0)
+		return (0);
 	init_create_threads(p);
 	free(p);
 	return (0);

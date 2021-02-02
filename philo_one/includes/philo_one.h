@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 12:37:19 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 12:54:56 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define ZERO_NUM 3
 # define INIT 1
 # define DELTA 2
+# define MALLOC_ERROR 10
 
 /*
 ** s_philo
