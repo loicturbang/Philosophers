@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:00 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 09:30:42 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 09:34:26 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void	*init_check_death(void *arg)
 		i = -1;
 		while (p->philos[++i] && i < p->nb_philos)
 		{
-			printf("starve_t_delta %lu\n", get_delta_time(p->philos[i]) - p->philos[i]->last_eat);
-			if (p->philos[i]->last_eat != 0 && (get_delta_time(p->philos[i]) - p->philos[i]->last_eat) >= (unsigned long)p->tt_die)
+			//printf("starve_t_delta %lu\n", get_delta_time(p->philos[i]) - p->philos[i]->last_eat);
+			if (/*p->philos[i]->last_eat != 0 && */ (get_delta_time(p->philos[i]) - p->philos[i]->last_eat) >= (unsigned long)p->tt_die)
 			{
 				printf("starve_t_delta %lu tt_die %d\n", get_delta_time(p->philos[i]) - p->philos[i]->last_eat, p->tt_die);
 				print_status(get_delta_time(p->philos[i]), p->philos[i]->id, DEAD);
