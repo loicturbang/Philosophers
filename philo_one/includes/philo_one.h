@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 11:24:36 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 12:37:19 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,13 @@ typedef struct	s_philo_one
 }				t_philo_one;
 
 /*
+**		PHILO
+*/
+
+void			*init_check_death(void *arg);
+void			*init_philo(void *arg);
+
+/*
 **		UTILS
 */
 
@@ -104,11 +111,5 @@ void			wait_ms(unsigned long ms_wait, t_philo *p);
 */
 
 void			debug(t_philo_one *philo_one);
-
-/*
-**		TMP
-*/
-
-int				ft_count_num(unsigned long n);
 
 #endif
