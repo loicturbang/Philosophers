@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:00 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 10:01:10 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 10:08:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	*init_philo(void *arg)
 		print_status(get_delta_time(philo), philo->id, EAT);
 		philo->last_eat = get_delta_time(philo);
 		wait_ms(p->tt_eat, philo);
+		philo->nb_eat++;
 		pthread_mutex_unlock(&philo->mutex);
 		pthread_mutex_unlock(&p->philos[(philo->id + 1) % p->nb_philos]->mutex); //avant sleep
 		print_status(get_delta_time(philo), philo->id, SLEEP);
@@ -45,13 +46,22 @@ void	*init_check_death(void *arg)
 {
 	t_philo_one *p;
 	int			i;
+	int			finish_eat;
 
 	p = (t_philo_one *)arg;
 	while (1)
 	{
 		i = -1;
+		finish_eat = 0;
 		while (p->philos[++i] && i < p->nb_philos)
 		{
+			if (p->must_eat_nb != -1 && (p->philos[i]->nb_eat >= p->must_eat_nb))
+				finish_eat++;
+			if (finish_eat == p->nb_philos)
+			{
+				pthread_mutex_unlock(&p->mutex_dead);
+				return (NULL);
+			}
 			if (/*p->philos[i]->last_eat != 0 && */ (get_delta_time(p->philos[i]) - p->philos[i]->last_eat) >= (unsigned long)p->tt_die)
 			{
 				printf("starve_t_delta %lu tt_die %d\n", get_delta_time(p->philos[i]) - p->philos[i]->last_eat, p->tt_die);
