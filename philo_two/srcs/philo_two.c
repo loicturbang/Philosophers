@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:00 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 14:40:37 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/02 19:48:44 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		init_parse(t_p *p, int argc, char **argv)
 int		main(int argc, char **argv)
 {
 	t_p *p;
-	
+
 	sem_unlink("forks");
 	sem_unlink("dead");
 	sem_unlink("print");

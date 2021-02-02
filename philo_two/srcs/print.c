@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:26:54 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 18:40:50 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/02 19:48:53 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void			print_status(unsigned long ms, int philo_id, int status, \
 	char	*str;
 	char	*str2;
 	char	*tmp;
-	
+
 	if (p->life)
 	{
 		sem_wait(p->sem_print);
