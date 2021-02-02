@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 14:15:29 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/02 14:48:31 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		init_structure(t_p *p)
 	sem_unlink("dead");
 	sem_unlink("print");
 	p->forks = sem_open("forks", O_CREAT, 0600, p->nb_philos);
-	p->sem_dead = sem_open("dead", O_CREAT, 0600, 1);
+	p->sem_dead = sem_open("dead", O_CREAT, 0600, 0);
 	p->sem_print = sem_open("print", O_CREAT, 0600, 1);
 	return (0);
 }
@@ -65,7 +65,7 @@ int		create_threads(t_p *p)
 		usleep(5);
 	}
 	if (pthread_create(&p->th_death, NULL, &init_check_death, p) != 0)
-		return (-1);
+		return (-1);	
 	return (0);
 }
 
@@ -76,8 +76,7 @@ int		init_create_threads(t_p *p)
 	if (init_structure(p) != 0)
 		return (-1);
 	if (create_threads(p) != 0)
-		return (-1);
-	sem_wait(p->sem_dead);
+		return (-1);	
 	sem_wait(p->sem_dead);
 	sem_close(p->sem_dead);
 	sem_close(p->sem_print);
