@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 12:54:56 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 13:24:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct	s_philo_one
 
 void			*init_check_death(void *arg);
 void			*init_philo(void *arg);
+int				init_create_threads(t_philo_one *p);
 
 /*
 **		UTILS
