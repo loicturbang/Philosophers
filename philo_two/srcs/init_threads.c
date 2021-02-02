@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 14:04:57 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 14:15:29 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ int		init_structure(t_p *p)
 		p->philos[i]->last_eat = 0;
 		p->philos[i]->nb_eat = 0;
 	}
+	sem_unlink("forks");
+	sem_unlink("dead");
+	sem_unlink("print");
 	p->forks = sem_open("forks", O_CREAT, 0600, p->nb_philos);
 	p->sem_dead = sem_open("dead", O_CREAT, 0600, 1);
 	p->sem_print = sem_open("print", O_CREAT, 0600, 1);
