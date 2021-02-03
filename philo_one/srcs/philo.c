@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:49 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 21:25:36 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/03 12:32:28 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	*init_philo(void *arg)
 	{
 		pthread_mutex_lock(&philo->mutex);
 		pthread_mutex_lock(&p->philos[(philo->id + 1) % p->nb_philos]->mutex);
+		print_status(get_delta_time(philo), philo->id, FORK, p);
 		print_status(get_delta_time(philo), philo->id, FORK, p);
 		print_status(get_delta_time(philo), philo->id, EAT, p);
 		philo->last_eat = get_delta_time(philo);
