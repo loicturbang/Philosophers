@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/03 14:07:19 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/03 14:53:47 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ void	kill_stop(t_p *p)
 	int i;
 
 	i = -1;
+	kill(0, SIGINT);
 	while (++i < p->nb_philos)
-		exit(p->philos[i]->pid);
+		kill(p->philos[i]->pid, SIGINT);
+	exit(0);
 }
 
 int		check_eat_death(t_p *p, int *finish_eat, int i)

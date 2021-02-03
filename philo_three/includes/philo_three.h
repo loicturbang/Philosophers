@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/03 13:50:45 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/03 14:51:47 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <semaphore.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+# include <signal.h>
 
 # define EAT 0
 # define SLEEP 1
