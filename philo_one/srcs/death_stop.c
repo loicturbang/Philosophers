@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 21:44:56 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/03 11:16:30 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int		check_eat_death(t_p *p, int *finish_eat, int i)
 	if (*finish_eat == p->nb_philos)
 	{
 		p->life = 0;
-		pthread_mutex_lock(&p->mutex_print); //remove
 		pthread_mutex_unlock(&p->mutex_dead);
 		return (1);
 	}
@@ -28,7 +27,6 @@ int		check_eat_death(t_p *p, int *finish_eat, int i)
 	{
 		print_status(get_delta_time(p->philos[i]), p->philos[i]->id, DEAD, p);
 		p->life = 0;
-		pthread_mutex_lock(&p->mutex_print); //remove
 		pthread_mutex_unlock(&p->mutex_dead);
 		return (1);
 	}

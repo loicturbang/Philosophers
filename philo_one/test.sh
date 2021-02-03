@@ -30,9 +30,11 @@ for ((i=0 ; i < NB_TESTS ; i++)); do
 		printf "FOUR $FOUR\n\n" >> error.txt
 		printf "Eat log:\n" >> error.txt
 		cat eat >> error.txt
+		cat out > $i.txt
 		printf "\n\n" >> error.txt
 	fi
 	rm one two three four
 	rm out eat
+	sleep 0.25
 done
 printf "\nResult $RESULT / $NB_TESTS\n";

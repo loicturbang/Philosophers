@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:00 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 19:48:44 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/03 11:10:05 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int		main(int argc, char **argv)
 
 	sem_unlink("forks");
 	sem_unlink("dead");
-	sem_unlink("print");
 	if (!(argc >= 5 && argc <= 6))
 		return (argument_error(ARGU_ERROR));
 	p = malloc(sizeof(t_p));
@@ -51,6 +50,5 @@ int		main(int argc, char **argv)
 	free(p);
 	sem_unlink("forks");
 	sem_unlink("dead");
-	sem_unlink("printf");
 	return (0);
 }

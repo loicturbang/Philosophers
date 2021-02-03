@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 21:25:08 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/03 11:15:50 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int		init_structure(t_p *p)
 		p->philos[i]->nb_eat = 0;
 	}
 	pthread_mutex_init(&p->mutex_dead, NULL);
-	pthread_mutex_init(&p->mutex_print, NULL);
 	return (0);
 }
 
@@ -78,7 +77,6 @@ int		init_create_threads(t_p *p)
 	pthread_mutex_lock(&p->mutex_dead);
 	pthread_mutex_lock(&p->mutex_dead);
 	pthread_mutex_destroy(&p->mutex_dead);
-	pthread_mutex_destroy(&p->mutex_print);
 	i = -1;
 	while (++i < p->nb_philos)
 	{

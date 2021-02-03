@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 18:34:36 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/03 11:09:20 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ typedef struct	s_p
 	pthread_t		th_death;
 	sem_t			*forks;
 	sem_t			*sem_dead;
-	sem_t			*sem_print;
 	int				life;
 }				t_p;
 

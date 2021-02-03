@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 21:24:34 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/03 11:03:27 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ typedef struct	s_p
 	struct s_philo	**philos;
 	pthread_t		th_death;
 	pthread_mutex_t mutex_dead;
-	pthread_mutex_t mutex_print;
 	int				life;
 }				t_p;
 

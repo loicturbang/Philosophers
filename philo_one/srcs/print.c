@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:26:54 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 21:27:18 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/03 11:02:52 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void			print_status(unsigned long ms, int philo_id, int status, \
 	
 	if (p->life)
 	{
-		pthread_mutex_lock(&p->mutex_print);
 		str = ft_itoa(ms);
 		str2 = ft_strjoin(str, "ms ");
 		free(str);
@@ -55,7 +54,6 @@ void			print_status(unsigned long ms, int philo_id, int status, \
 		free(str2);
 		write(1, str, ft_strlen(str));
 		free(str);
-		pthread_mutex_unlock(&p->mutex_print);
 	}	
 }
 
