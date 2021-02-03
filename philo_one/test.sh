@@ -27,7 +27,7 @@ for ((i=0 ; i < NB_TESTS ; i++)); do
 		printf "Three $THREE\n" >> error.txt
 		printf "FOUR $FOUR\n\n" >> error.txt
 		printf "Eat log:\n" >> error.txt
-		eat >> error.txt
+		cat eat >> error.txt
 		printf "\n\n" >> error.txt
 	fi
 	rm one two three four
