@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/03 16:59:24 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/03 17:26:50 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct	s_philo
 	sem_t				*eat;
 	sem_t				*must_eat;
 	struct s_p			*p;
+	pthread_t			th;
 }				t_philo;
 
 /*
@@ -72,6 +73,13 @@ typedef struct	s_p
 	sem_t			*sem_dead;
 	int				life;
 }				t_p;
+
+/*
+** NEW
+*/
+
+void			*check_death(void *arg);
+void			*update_last_eat(void *arg);
 
 /*
 **		PHILO
