@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/03 16:22:58 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/03 17:08:33 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ int		init_structure(t_p *p)
 			return (MALLOC_ERROR);
 		p->philos[i]->p = p;
 		p->philos[i]->id = i;
-		get_delta_time(p->philos[i]);
 		p->philos[i]->last_eat = 0;
 		p->philos[i]->nb_eat = 0;
 		create_sem_philos(p, i);
@@ -109,6 +108,7 @@ int		create_threads(t_p *p)
 	int i;
 
 	i = -1;
+	get_delta_time();
 	while (++i < p->nb_philos)
 	{
 		p->philos[i]->pid = fork();

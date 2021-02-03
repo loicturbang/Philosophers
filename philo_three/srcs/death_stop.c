@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/03 16:30:30 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/03 17:12:01 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,30 @@ int		check_eat_death(t_p *p, int *finish_eat, int i)
 		sem_post(p->sem_dead);
 		return (1);
 	}
-	if ((get_delta_time(p->philos[i]) - p->philos[i]->last_eat) >= \
+	if ((get_delta_time() - p->philos[i]->last_eat) >= \
 											(unsigned long)p->tt_die)
 	{
-		print_status(get_delta_time(p->philos[i]), p->philos[i]->id, DEAD, p);
+		print_status(get_delta_time(), p->philos[i]->id, DEAD, p);
 		p->life = 0;
 		kill_stop(p);
 		sem_post(p->sem_dead);
 		return (1);
 	}
 	return (0);
+}
+
+#include <stdio.h>
+
+void	check_death(t_philo *philo)
+{
+	if ((get_delta_time() - philo->last_eat) >=	(unsigned long)p->tt_die)
+	{   
+		print_status(get_delta_time(), p->philos[i]->id, DEAD, p);
+		p->life = 0;
+		kill_stop(p);
+		sem_post(p->sem_dead);
+		return (1);
+	}
 }
 
 void	update_eat(t_p *p)
@@ -54,7 +68,11 @@ void	update_eat(t_p *p)
 	while (++i < p->nb_philos)
 	{
 		sem_wait(p->philos[i]->eat);
-		p->philos[i]->last_eat = get_delta_time(p->philos[i]);
+		write(1, "euh\n", 4);
+		printf("EUH %d\n", i + 1);
+		p->philos[i]->last_eat = get_delta_time();
+		printf("last_eat %lu %lu\n", p->philos[i]->last_eat, p->philos[(i + 1) % p->nb_philos]->last_eat);
+		printf("delta last_eat %lu %lu\n", get_delta_time() -  p->philos[i]->last_eat, get_delta_time() - p->philos[(i + 1) % p->nb_philos]->last_eat);
 	}
 }
 
