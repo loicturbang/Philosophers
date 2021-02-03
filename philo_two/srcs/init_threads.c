@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 20:48:35 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/03 10:33:21 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,9 @@ int		init_create_threads(t_p *p)
 	sem_wait(p->sem_dead);
 	sem_close(p->sem_dead);
 	sem_close(p->sem_print);
-	sem_post(p->forks);
+	i = -1;
+	while (++i < p->nb_philos)
+		sem_post(p->forks);
 	sem_close(p->forks);
 	i = -1;
 	while (++i < p->nb_philos)
