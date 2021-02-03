@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/03 15:00:09 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/03 16:22:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,63 @@ int		check_malloc_free(t_philo *philo, t_p *p, int i)
 	return (0);
 }
 
+char	*get_sem_name(int type, int i)
+{
+	char	*philo_name;
+	char	*tmp;
+
+	tmp = ft_itoa((unsigned long)i);
+	if (type == SEM_EAT)
+	{
+		philo_name = ft_strjoin("p_eat_", tmp);
+		free(tmp);
+		return (philo_name);
+	}
+	else if (type == SEM_MUST_EAT)
+	{
+		philo_name = ft_strjoin("p_must_eat_", tmp);
+		free(tmp);
+		return (philo_name);
+	}
+	free(tmp);
+	return (NULL);
+}
+
+int		create_sem_philos(t_p *p, int i)
+{
+	char	*philo_name;
+
+	philo_name = get_sem_name(SEM_EAT, i);
+	p->philos[i]->eat = sem_open(philo_name, O_CREAT, 0600, 0);
+	free(philo_name);
+	philo_name = get_sem_name(SEM_MUST_EAT, i);
+	p->philos[i]->eat = sem_open(philo_name, O_CREAT, 0600, 0); //check sem open value
+	free(philo_name);
+	return (0);
+}
+
+void	unlink_sem_philos(void)
+{
+	int		i;
+	char	*philo_name;
+
+	i = 202;
+	sem_unlink("forks");
+	sem_unlink("dead");
+	while (--i >= 0)
+	{
+		philo_name = get_sem_name(SEM_EAT, i);
+		sem_unlink(philo_name);
+		free(philo_name);
+		philo_name = get_sem_name(SEM_MUST_EAT, i);
+		sem_unlink(philo_name);
+		free(philo_name);
+	}
+}
+
 int		init_structure(t_p *p)
 {
-	int i;
+	int		i;
 
 	i = -1;
 	p->life = 1;
@@ -43,9 +97,8 @@ int		init_structure(t_p *p)
 		get_delta_time(p->philos[i]);
 		p->philos[i]->last_eat = 0;
 		p->philos[i]->nb_eat = 0;
+		create_sem_philos(p, i);
 	}
-	sem_unlink("forks");
-	sem_unlink("dead");
 	p->forks = sem_open("forks", O_CREAT, 0600, p->nb_philos);
 	p->sem_dead = sem_open("dead", O_CREAT, 0600, 0);
 	return (0);
