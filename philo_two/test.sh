@@ -7,7 +7,7 @@ RESULT=0
 rm error.txt
 
 for ((i=0 ; i < NB_TESTS ; i++)); do
-	./philo_one 4 410 200 200 $MUST_EAT > out
+	./philo_two 4 410 200 200 $MUST_EAT > out
 	< out grep eat > eat
 	< eat grep "1 is eating" > one
 	< eat grep "2 is eating" > two
