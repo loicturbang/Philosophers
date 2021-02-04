@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:49 by user42            #+#    #+#             */
-/*   Updated: 2021/02/04 16:35:01 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/04 16:49:51 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	*init_philo(void *arg)
 
 	philo = (t_philo *)arg;
 	p = philo->p;
-	sem_wait(p->end_fork);
+	//sem_wait(p->end_fork);
 	while (p->life)
 	{
 		sem_wait(p->forks);

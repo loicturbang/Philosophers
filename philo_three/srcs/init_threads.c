@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/04 16:36:10 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/04 16:50:15 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,12 +105,15 @@ int		init_structure(t_p *p)
 	return (0);
 }
 
+#include <stdio.h>
+
 int		create_threads(t_p *p)
 {
 	int i;
 	int	j;
 
 	i = -1;
+	get_delta_time();
 	while (++i < p->nb_philos)
 	{
 		p->philos[i]->pid = fork();
@@ -118,14 +121,15 @@ int		create_threads(t_p *p)
 			return (-1);
 		else if (p->philos[i]->pid == 0)
 		{
+			(void)j;
+			printf("ok\n");/*
 			if (i == p->nb_philos - 1)
 			{
 				//wait till end of fork and then unlock p->end_fork
 				j = -1;
 				while (++j < p->nb_philos)
 					sem_post(p->end_fork);
-				get_delta_time();
-			}
+			}*/
 			init_philo(p->philos[i]);
 		}
 		usleep(5);
