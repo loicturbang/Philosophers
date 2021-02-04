@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/04 14:49:48 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/04 15:10:44 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ void	*check_death(void *arg)
 				sem_post(p->sem_dead);
 				return (NULL);
 			}
-			usleep(19);
+			usleep(5);
 		}
 	}
 	return (NULL);
