@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/03 17:26:50 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/04 09:39:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct	s_p
 	int				nb_philos;
 	struct s_philo	**philos;
 	pthread_t		th_death;
+	pthread_t		th_must_eat;
 	sem_t			*forks;
 	sem_t			*sem_dead;
 	int				life;
@@ -87,6 +88,7 @@ void			*update_last_eat(void *arg);
 
 void			*init_check_death(void *arg);
 void			*init_philo(void *arg);
+void			*update_must_eat(void *arg);
 int				init_create_threads(t_p *p);
 void			unlink_sem_philos(void);
 

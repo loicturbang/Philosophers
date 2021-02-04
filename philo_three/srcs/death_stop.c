@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/03 17:30:45 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/04 09:38:25 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,22 @@ void	*init_check_death(void *arg)
 ** NEW
 */
 
+void	*update_must_eat(void *arg)
+{
+	t_p			*p;
+	int			i;
+
+	p = (t_p *)arg;
+	i = -1;
+	while (++i < p->nb_philos)
+	{
+		sem_wait(p->philos[i]->must_eat);
+	}
+	kill_stop(p);
+	sem_post(p->sem_dead);
+	return (NULL);
+}
+
 void	*update_last_eat(void *arg)
 {
 	t_philo		*philo;
@@ -94,7 +110,7 @@ void	*check_death(void *arg)
 	while (1)
 	{
 		i = -1;
-		while (p->philos[++i] && i < p->nb_philos)
+		while (++i < p->nb_philos)
 		{
 			if ((get_delta_time() - p->philos[i]->last_eat) >= (unsigned long)p->tt_die)
 			{
