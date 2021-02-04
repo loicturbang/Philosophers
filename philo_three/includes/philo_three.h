@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/04 16:31:01 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/04 16:56:02 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define MALLOC_ERROR 10
 # define SEM_EAT 1
 # define SEM_MUST_EAT 2
+# define SEM_FORK_SYNC 3
 
 /*
 ** s_philo
@@ -51,6 +52,7 @@ typedef struct	s_philo
 	int					pid;
 	sem_t				*eat;
 	sem_t				*must_eat;
+	sem_t				*fork_sync;
 	struct s_p			*p;
 	pthread_t			th_eat;
 }				t_philo;
@@ -71,7 +73,6 @@ typedef struct	s_p
 	pthread_t		th_must_eat;
 	sem_t			*forks;
 	sem_t			*sem_dead;
-	sem_t			*end_fork;
 	pthread_t		th_death;
 	int				life;
 }				t_p;

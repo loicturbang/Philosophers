@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/04 16:50:15 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/04 17:00:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@ char	*get_sem_name(int type, int i)
 		free(tmp);
 		return (philo_name);
 	}
+	else if (type == SEM_FORK_SYNC)
+	{
+		philo_name = ft_strjoin("p_fork_sync_", tmp);
+		free(tmp);
+		return (philo_name);
+	}
 	free(tmp);
 	return (NULL);
 }
@@ -59,6 +65,9 @@ int		create_sem_philos(t_p *p, int i)
 	philo_name = get_sem_name(SEM_MUST_EAT, i);
 	p->philos[i]->must_eat = sem_open(philo_name, O_CREAT, 0600, 0); //check sem open value
 	free(philo_name);
+	philo_name = get_sem_name(SEM_FORK_SYNC, i);
+	p->philos[i]->fork_sync = sem_open(philo_name, O_CREAT, 0600, 0); //check sem open value
+	free(philo_name);
 	return (0);
 }
 
@@ -70,13 +79,15 @@ void	unlink_sem_philos(void)
 	i = 202;
 	sem_unlink("forks");
 	sem_unlink("dead");
-	sem_unlink("end_fork");
 	while (--i >= 0)
 	{
 		philo_name = get_sem_name(SEM_EAT, i);
 		sem_unlink(philo_name);
 		free(philo_name);
 		philo_name = get_sem_name(SEM_MUST_EAT, i);
+		sem_unlink(philo_name);
+		free(philo_name);
+		philo_name = get_sem_name(SEM_FORK_SYNC, i);
 		sem_unlink(philo_name);
 		free(philo_name);
 	}
@@ -101,7 +112,6 @@ int		init_structure(t_p *p)
 	}
 	p->forks = sem_open("forks", O_CREAT, 0600, p->nb_philos);
 	p->sem_dead = sem_open("dead", O_CREAT, 0600, 0);
-	p->end_fork = sem_open("end_fork", O_CREAT, 0600, 0);
 	return (0);
 }
 
@@ -121,16 +131,15 @@ int		create_threads(t_p *p)
 			return (-1);
 		else if (p->philos[i]->pid == 0)
 		{
-			(void)j;
-			printf("ok\n");/*
-			if (i == p->nb_philos - 1)
-			{
-				//wait till end of fork and then unlock p->end_fork
-				j = -1;
-				while (++j < p->nb_philos)
-					sem_post(p->end_fork);
-			}*/
+			sem_wait(p->philos[i]->fork_sync);
 			init_philo(p->philos[i]);
+		}
+		else if (i == p->nb_philos - 1)
+		{
+			//unlock sem
+			j = -1;
+			while (++j < p->nb_philos)
+				sem_post(p->philos[i]->fork_sync);
 		}
 		usleep(5);
 	}
