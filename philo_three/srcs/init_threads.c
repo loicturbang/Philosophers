@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/04 18:23:46 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/04 18:27:14 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ int		create_threads(t_p *p)
 		}
 		usleep(5);
 	}
-	wait(p->sem_fork_sync);
+	sem_wait(p->sem_fork_sync);
 	if (pthread_create(&p->th_death, NULL, &check_death, p) != 0)
 		return (-1);
 	if (p->must_eat_nb != -1)
