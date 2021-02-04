@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/04 16:23:51 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/04 16:36:10 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	unlink_sem_philos(void)
 	i = 202;
 	sem_unlink("forks");
 	sem_unlink("dead");
+	sem_unlink("end_fork");
 	while (--i >= 0)
 	{
 		philo_name = get_sem_name(SEM_EAT, i);
@@ -100,22 +101,31 @@ int		init_structure(t_p *p)
 	}
 	p->forks = sem_open("forks", O_CREAT, 0600, p->nb_philos);
 	p->sem_dead = sem_open("dead", O_CREAT, 0600, 0);
+	p->end_fork = sem_open("end_fork", O_CREAT, 0600, 0);
 	return (0);
 }
 
 int		create_threads(t_p *p)
 {
 	int i;
+	int	j;
 
 	i = -1;
 	while (++i < p->nb_philos)
 	{
 		p->philos[i]->pid = fork();
-		get_delta_time();
 		if (p->philos[i]->pid < 0)
 			return (-1);
 		else if (p->philos[i]->pid == 0)
 		{
+			if (i == p->nb_philos - 1)
+			{
+				//wait till end of fork and then unlock p->end_fork
+				j = -1;
+				while (++j < p->nb_philos)
+					sem_post(p->end_fork);
+				get_delta_time();
+			}
 			init_philo(p->philos[i]);
 		}
 		usleep(5);
