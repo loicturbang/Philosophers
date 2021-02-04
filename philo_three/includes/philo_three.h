@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/04 09:39:16 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/04 14:25:51 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ typedef struct	s_philo
 	sem_t				*eat;
 	sem_t				*must_eat;
 	struct s_p			*p;
-	pthread_t			th;
+	pthread_t			th_eat;
+	pthread_t		th_death;
 }				t_philo;
 
 /*
@@ -68,7 +69,6 @@ typedef struct	s_p
 	int				must_eat_nb;
 	int				nb_philos;
 	struct s_philo	**philos;
-	pthread_t		th_death;
 	pthread_t		th_must_eat;
 	sem_t			*forks;
 	sem_t			*sem_dead;
