@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/04 09:43:28 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/04 13:47:13 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,10 @@ int		create_threads(t_p *p)
 	int i;
 
 	i = -1;
-	get_delta_time();
 	while (++i < p->nb_philos)
 	{
 		p->philos[i]->pid = fork();
+		get_delta_time();
 		if (p->philos[i]->pid < 0)
 			return (-1);
 		else if (p->philos[i]->pid == 0)
