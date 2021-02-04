@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/04 09:38:25 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/04 14:01:40 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void	*check_death(void *arg)
 		{
 			if ((get_delta_time() - p->philos[i]->last_eat) >= (unsigned long)p->tt_die)
 			{
+				p->life = 0;
 				print_status(get_delta_time(), p->philos[i]->id, DEAD, p);
 				kill_stop(p);
 				sem_post(p->sem_dead);

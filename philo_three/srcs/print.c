@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:26:54 by user42            #+#    #+#             */
-/*   Updated: 2021/02/03 17:01:17 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/04 14:01:31 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void			print_status(unsigned long ms, int philo_id, int status, \
 	char	*str2;
 	char	*tmp;
 
-	if (p->life)
+	if (p->life || status == DEAD)
 	{
 		str = ft_itoa(ms);
 		str2 = ft_strjoin(str, "ms ");
