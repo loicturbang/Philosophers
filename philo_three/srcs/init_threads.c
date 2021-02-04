@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/04 17:00:01 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/04 18:23:46 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	unlink_sem_philos(void)
 	i = 202;
 	sem_unlink("forks");
 	sem_unlink("dead");
+	sem_unlink("fork_sync");
 	while (--i >= 0)
 	{
 		philo_name = get_sem_name(SEM_EAT, i);
@@ -112,6 +113,7 @@ int		init_structure(t_p *p)
 	}
 	p->forks = sem_open("forks", O_CREAT, 0600, p->nb_philos);
 	p->sem_dead = sem_open("dead", O_CREAT, 0600, 0);
+	p->sem_fork_sync = sem_open("fork_sync", O_CREAT, 0600, 0);
 	return (0);
 }
 
@@ -123,7 +125,6 @@ int		create_threads(t_p *p)
 	int	j;
 
 	i = -1;
-	get_delta_time();
 	while (++i < p->nb_philos)
 	{
 		p->philos[i]->pid = fork();
@@ -132,6 +133,7 @@ int		create_threads(t_p *p)
 		else if (p->philos[i]->pid == 0)
 		{
 			sem_wait(p->philos[i]->fork_sync);
+			get_delta_time();
 			init_philo(p->philos[i]);
 		}
 		else if (i == p->nb_philos - 1)
@@ -139,10 +141,12 @@ int		create_threads(t_p *p)
 			//unlock sem
 			j = -1;
 			while (++j < p->nb_philos)
-				sem_post(p->philos[i]->fork_sync);
+				sem_post(p->philos[j]->fork_sync);
+			sem_post(p->sem_fork_sync);
 		}
 		usleep(5);
 	}
+	wait(p->sem_fork_sync);
 	if (pthread_create(&p->th_death, NULL, &check_death, p) != 0)
 		return (-1);
 	if (p->must_eat_nb != -1)
