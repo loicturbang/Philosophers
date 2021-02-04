@@ -1,7 +1,7 @@
 make
 
 MUST_EAT=10
-NB_TESTS=100
+NB_TESTS=1
 RESULT=0
 
 rm error.txt
