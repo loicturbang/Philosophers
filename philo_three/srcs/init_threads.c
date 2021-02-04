@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/03 17:29:25 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/04 09:30:25 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		create_sem_philos(t_p *p, int i)
 	p->philos[i]->eat = sem_open(philo_name, O_CREAT, 0600, 0);
 	free(philo_name);
 	philo_name = get_sem_name(SEM_MUST_EAT, i);
-	p->philos[i]->eat = sem_open(philo_name, O_CREAT, 0600, 0); //check sem open value
+	p->philos[i]->must_eat = sem_open(philo_name, O_CREAT, 0600, 0); //check sem open value
 	free(philo_name);
 	return (0);
 }
