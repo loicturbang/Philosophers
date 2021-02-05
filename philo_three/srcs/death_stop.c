@@ -6,17 +6,14 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/05 16:51:06 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/05 17:00:39 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_three.h"
 
-void	kill_stop(t_p *p)
+void	kill_stop(void)
 {
-	int i;
-	(void)p;
-	i = -1;
 	kill(0, SIGINT);
 	/*
 	while (++i < p->nb_philos)
@@ -40,7 +37,6 @@ void	*update_must_eat(void *arg)
 		sem_wait(p->philos[i]->must_eat);
 	}
 	p->life = 0;
-	kill_stop(p);
 	sem_post(p->sem_dead);
 	return (NULL);
 }

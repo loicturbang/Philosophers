@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/05 16:27:49 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/05 16:59:13 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void			*init_philo(void *arg);
 void			*update_must_eat(void *arg);
 int				init_create_threads(t_p *p);
 void			unlink_sem_philos(void);
-void	kill_stop(t_p *p);
+void	kill_stop(void);
 
 /*
 **		UTILS

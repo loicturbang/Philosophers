@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/05 16:50:42 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/05 17:05:01 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ int		create_threads(t_p *p)
 				return (-1);
 			pthread_join(p->philos[i]->th_death, NULL);
 			pthread_join(p->philos[i]->th_eat, NULL);
+			exit(0);
 		}
 		usleep(5);
 	}
@@ -135,7 +136,6 @@ int		init_create_threads(t_p *p)
 	if (create_threads(p) != 0)
 		return (-1);
 	sem_wait(p->sem_dead);
-	kill_stop(p);
 	sem_close(p->sem_dead);
 	i = -1;
 	while (++i < p->nb_philos * 2)
