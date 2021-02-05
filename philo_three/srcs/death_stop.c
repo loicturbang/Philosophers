@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/05 14:12:05 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/05 14:19:30 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	*update_must_eat(void *arg)
 	{
 		sem_wait(p->philos[i]->must_eat);
 	}
+	p->life = 0;
 	kill_stop(p);
 	sem_post(p->sem_dead);
 	return (NULL);
