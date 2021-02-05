@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/05 09:11:38 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/05 09:34:07 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void	unlink_sem_philos(void)
 	i = 202;
 	sem_unlink("forks");
 	sem_unlink("dead");
-	sem_unlink("fork_sync");
+	sem_unlink("fork_sync_philo");
+	sem_unlink("fork_sync_death");
 	while (--i >= 0)
 	{
 		philo_name = get_sem_name(SEM_EAT, i);
@@ -101,7 +102,8 @@ int		init_structure(t_p *p)
 	}
 	p->forks = sem_open("forks", O_CREAT, 0600, p->nb_philos);
 	p->sem_dead = sem_open("dead", O_CREAT, 0600, 0);
-	p->sem_fork_sync = sem_open("fork_sync", O_CREAT, 0600, 0);
+	p->sem_fork_sync_philo = sem_open("fork_sync_philo", O_CREAT, 0600, 0);
+	p->sem_fork_sync_death = sem_open("fork_sync_death", O_CREAT, 0600, 0);
 	return (0);
 }
 
@@ -123,12 +125,18 @@ int		create_threads(t_p *p)
 				return (-1);
 			if (pthread_create(&p->philos[i]->th_death, NULL, &check_death, p->philos[i]) != 0)
 				return (-1);
+			exit(0);
 		}
 		usleep(5);
 	}
 	if (p->must_eat_nb != -1)
 		if (pthread_create(&p->th_must_eat, NULL, &update_must_eat, p) != 0)
 			return (-1);
+	i = -1;/*
+	while (++i < p->nb_philos)
+	{
+		
+	}*/
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:49 by user42            #+#    #+#             */
-/*   Updated: 2021/02/05 09:14:32 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/05 09:29:03 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,25 @@
 ** sem_post --> give fork back
 */
 
+#include <stdio.h>
+
 void	*init_philo(void *arg)
 {
 	t_philo		*philo;
 	t_p			*p;
-
+	
 
 	philo = (t_philo *)arg;
 	p = philo->p;
+	printf("%d %d\n", philo->id + 1, p->nb_philos);
 	if (philo->id + 1 == p->nb_philos)
 	{
-		sem_post(p->sem_fork_sync);
+		sem_post(p->sem_fork_sync_philo);
 	}
 	else
 	{
-		sem_wait(p->sem_fork_sync);
-		sem_post(p->sem_fork_sync);
+		sem_wait(p->sem_fork_sync_philo);
+		sem_post(p->sem_fork_sync_philo);
 	}
 	get_delta_time();
 	while (p->life)
