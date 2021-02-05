@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/05 14:19:30 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/05 16:51:06 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 void	kill_stop(t_p *p)
 {
 	int i;
-
+	(void)p;
 	i = -1;
 	kill(0, SIGINT);
+	/*
 	while (++i < p->nb_philos)
-		kill(p->philos[i]->pid, SIGINT); //needed ?
+		kill(p->philos[i]->pid, SIGINT); //needed ?*/
 	//exit(0);
 }
 
@@ -66,11 +67,12 @@ void	*check_death(void *arg)
 		if ((get_delta_time() - philo->last_eat) >= (unsigned long)p->tt_die)
 		{
 			p->life = 0;
+			sem_wait(p->sem_dead_print);
 			print_status(get_delta_time(), philo->id, DEAD, p);
-			kill_stop(p);
 			sem_post(p->sem_dead);
 			return (NULL);
 		}
 		usleep(5);
 	}
+	return (NULL);
 }

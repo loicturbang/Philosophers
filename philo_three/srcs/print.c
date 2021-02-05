@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:26:54 by user42            #+#    #+#             */
-/*   Updated: 2021/02/05 14:19:22 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/05 16:51:24 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ void			print_status(unsigned long ms, int philo_id, int status, \
 
 	if (p->life || status == DEAD)
 	{
-		if (status == DEAD)
-			sem_wait(p->sem_dead_print);
 		str = ft_itoa(ms);
 		str2 = ft_strjoin(str, "ms ");
 		free(str);
