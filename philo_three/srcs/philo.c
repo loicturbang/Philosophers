@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:49 by user42            #+#    #+#             */
-/*   Updated: 2021/02/05 12:53:34 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/05 14:11:10 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	*init_philo(void *arg)
 		print_status(get_delta_time(), philo->id, FORK, p);
 		print_status(get_delta_time(), philo->id, EAT, p);
 		philo->last_eat = get_delta_time();
-		sem_post(philo->eat);
 		wait_ms(p->tt_eat);
 		philo->nb_eat++;
 		if (philo->nb_eat >= p->must_eat_nb)

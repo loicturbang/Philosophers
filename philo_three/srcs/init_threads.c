@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/05 13:26:43 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/05 14:12:53 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,7 @@ char	*get_sem_name(int type, int i)
 	char	*tmp;
 
 	tmp = ft_itoa((unsigned long)i);
-	if (type == SEM_EAT)
-	{
-		philo_name = ft_strjoin("p_eat_", tmp);
-		free(tmp);
-		return (philo_name);
-	}
-	else if (type == SEM_MUST_EAT)
+	if (type == SEM_MUST_EAT)
 	{
 		philo_name = ft_strjoin("p_must_eat_", tmp);
 		free(tmp);
@@ -53,9 +47,6 @@ int		create_sem_philos(t_p *p, int i)
 {
 	char	*philo_name;
 
-	philo_name = get_sem_name(SEM_EAT, i);
-	p->philos[i]->eat = sem_open(philo_name, O_CREAT, 0600, 0);
-	free(philo_name);
 	philo_name = get_sem_name(SEM_MUST_EAT, i);
 	p->philos[i]->must_eat = sem_open(philo_name, O_CREAT, 0600, 0); //check sem open value
 	free(philo_name);
@@ -70,13 +61,11 @@ void	unlink_sem_philos(void)
 	i = 202;
 	sem_unlink("forks");
 	sem_unlink("dead");
+	sem_unlink("dead_print");
 	sem_unlink("fork_sync_philo");
 	sem_unlink("fork_sync_death");
 	while (--i >= 0)
 	{
-		philo_name = get_sem_name(SEM_EAT, i);
-		sem_unlink(philo_name);
-		free(philo_name);
 		philo_name = get_sem_name(SEM_MUST_EAT, i);
 		sem_unlink(philo_name);
 		free(philo_name);
@@ -102,8 +91,9 @@ int		init_structure(t_p *p)
 	}
 	p->forks = sem_open("forks", O_CREAT, 0600, p->nb_philos);
 	p->sem_dead = sem_open("dead", O_CREAT, 0600, 0);
+	p->sem_dead_print = sem_open("dead_print", O_CREAT, 0600, 0);
 	p->sem_fork_sync_philo = sem_open("fork_sync_philo", O_CREAT, 0600, 0);
-	p->sem_fork_sync_death = sem_open("fork_sync_death", O_CREAT, 0600, 0);
+	p->sem_fork_sync_death = sem_open("fork_sync_death", O_CREAT, 0600, 0);	
 	return (0);
 }
 

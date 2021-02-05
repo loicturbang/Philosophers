@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/05 09:27:29 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/05 14:12:45 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
 # define INIT 1
 # define DELTA 2
 # define MALLOC_ERROR 10
-# define SEM_EAT 1
 # define SEM_MUST_EAT 2
 
 /*
@@ -49,7 +48,6 @@ typedef struct	s_philo
 	struct timeval		time_start;
 	struct timeval		time_actual;
 	int					pid;
-	sem_t				*eat;
 	sem_t				*must_eat;
 	struct s_p			*p;
 	pthread_t			th_eat;
@@ -74,6 +72,7 @@ typedef struct	s_p
 	sem_t			*sem_dead;
 	sem_t			*sem_fork_sync_philo;
 	sem_t			*sem_fork_sync_death;
+	sem_t			*sem_dead_print;
 	int				life;
 }				t_p;
 
@@ -82,7 +81,6 @@ typedef struct	s_p
 */
 
 void			*check_death(void *arg);
-//void			*update_last_eat(void *arg);
 
 /*
 **		PHILO
