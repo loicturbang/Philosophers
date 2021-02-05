@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/05 12:26:55 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/05 12:56:37 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ int		create_threads(t_p *p)
 			return (-1);
 		else if (p->philos[i]->pid == 0)
 		{
+			//printf("CHild\n");
 			if (pthread_create(&p->philos[i]->th_eat, NULL, &init_philo, p->philos[i]) != 0)
 				return (-1);
 			if (pthread_create(&p->philos[i]->th_death, NULL, &check_death, p->philos[i]) != 0)
