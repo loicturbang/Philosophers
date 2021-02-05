@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:49 by user42            #+#    #+#             */
-/*   Updated: 2021/02/04 16:54:22 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/05 09:10:43 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,16 @@ void	*init_philo(void *arg)
 
 	philo = (t_philo *)arg;
 	p = philo->p;
+	if (philo->id + 1 == p->nb_philos)
+	{
+		sem_post(p->sem_fork_sync);
+	}
+	else
+	{
+		sem_wait(p->sem_fork_sync);
+		sem_post(p->sem_fork_sync);
+	}
+	get_delta_time();
 	while (p->life)
 	{
 		sem_wait(p->forks);
@@ -32,7 +42,7 @@ void	*init_philo(void *arg)
 		print_status(get_delta_time(), philo->id, FORK, p);
 		print_status(get_delta_time(), philo->id, FORK, p);
 		print_status(get_delta_time(), philo->id, EAT, p);
-		//philo->last_eat = get_delta_time(philo);
+		philo->last_eat = get_delta_time();
 		sem_post(philo->eat);
 		wait_ms(p->tt_eat);
 		philo->nb_eat++;

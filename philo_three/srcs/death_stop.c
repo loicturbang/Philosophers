@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/04 15:10:44 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/05 09:11:23 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	*update_must_eat(void *arg)
 	sem_post(p->sem_dead);
 	return (NULL);
 }
-
+/*
 void	*update_last_eat(void *arg)
 {
 	t_philo		*philo;
@@ -100,7 +100,7 @@ void	*update_last_eat(void *arg)
 	}
 	return (NULL);
 }
-/*
+*/
 void	*check_death(void *arg)
 {
 	t_philo		*philo;
@@ -121,7 +121,8 @@ void	*check_death(void *arg)
 		usleep(5);
 	}
 }
-*/
+
+/*
 void	*check_death(void *arg)
 {
 	t_p			*p;
@@ -146,3 +147,4 @@ void	*check_death(void *arg)
 	}
 	return (NULL);
 }
+*/
