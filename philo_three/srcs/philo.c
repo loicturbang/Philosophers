@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:49 by user42            #+#    #+#             */
-/*   Updated: 2021/02/05 14:11:10 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/05 14:21:25 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,8 @@ void	*init_philo(void *arg)
 
 	philo = (t_philo *)arg;
 	p = philo->p;
-	printf("%d %d\n", philo->id + 1, p->nb_philos);
 	if (philo->id + 1 == p->nb_philos)
-	{
 		sem_post(p->sem_fork_sync_philo);
-	}
 	else
 	{
 		sem_wait(p->sem_fork_sync_philo);
