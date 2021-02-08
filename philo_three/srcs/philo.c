@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:49 by user42            #+#    #+#             */
-/*   Updated: 2021/02/05 14:33:21 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/08 10:52:46 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ void	*init_philo(void *arg)
 		wait_ms(p->tt_sleep);
 		print_status(get_delta_time(), philo->id, THINK, p);
 	}
+	exit(0);
 	return (NULL);
 }

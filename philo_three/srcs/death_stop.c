@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/05 17:00:39 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/08 10:54:06 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	*check_death(void *arg)
 	{
 		if ((get_delta_time() - philo->last_eat) >= (unsigned long)p->tt_die)
 		{
-			p->life = 0;
+			p->life = 0; //useless with fork, use sem instead
 			sem_wait(p->sem_dead_print);
 			print_status(get_delta_time(), philo->id, DEAD, p);
 			sem_post(p->sem_dead);
