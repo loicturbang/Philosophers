@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:58:16 by user42            #+#    #+#             */
-/*   Updated: 2021/02/03 12:41:07 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/08 16:35:32 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int					ft_atoi(const char *str)
 	size_t	result;
 
 	neg = 1;
+	if (!str)
+		return (-1);
 	result = ft_atoi_2(str, &neg);
 	if (result > 9223372036854775807)
 	{

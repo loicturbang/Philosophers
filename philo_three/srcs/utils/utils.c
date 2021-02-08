@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:44:40 by user42            #+#    #+#             */
-/*   Updated: 2021/02/05 14:25:31 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/08 16:36:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,21 @@ unsigned int	ft_strlen(const char *s)
 char			*ft_strdup(const char *src)
 {
 	int					i;
-	char				*string;
+	char				*str;
 	unsigned int		size;
 
 	i = 0;
 	size = ft_strlen(src);
-	if (!(string = (char *)malloc(sizeof(char) * (size + 1))))
+	str = malloc(sizeof(char) * (size + 1));
+	if (!str)
 		return (NULL);
 	while (src[i])
 	{
-		string[i] = src[i];
+		str[i] = src[i];
 		i++;
 	}
-	string[i] = '\0';
-	return (string);
+	str[i] = '\0';
+	return (str);
 }
 
 void			ft_putstr_fd(char *str, int fd)

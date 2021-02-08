@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:00 by user42            #+#    #+#             */
-/*   Updated: 2021/02/08 13:37:19 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/08 16:34:48 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ int		init_parse(t_p *p, int argc, char **argv)
 		free(p);
 		return (NO_NUM_INT);
 	}
-	if (p->must_eat_nb == 0 || p->nb_philos == 0)
+	if ((p->must_eat_nb <= 0 && argc == 6) || p->nb_philos <= 1)
 	{
-		argument_error(ZERO_NUM);
-		return (ZERO_NUM);
+		argument_error(TOO_LOW);
+		free(p);
+		return (TOO_LOW);
 	}
 	p->phil = malloc(sizeof(t_philo) * p->nb_philos);
 	if (!p->phil)

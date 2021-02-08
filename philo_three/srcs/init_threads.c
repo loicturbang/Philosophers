@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/08 13:37:19 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/08 16:40:08 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ int		create_threads(t_p *p)
 	}
 	i = -1;
 	while (++i < p->nb_philos && p->life)
-		waitpid(p->phil[i]->pid, 0 , 0);
+		waitpid(p->phil[i]->pid, 0, 0);
 	if (p->must_eat_nb != -1)
 		if (pthread_create(&p->th_must_eat, NULL, &update_must_eat, p) != 0)
 			return (-1);

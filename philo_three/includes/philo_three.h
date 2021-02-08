@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/08 13:38:03 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/08 16:38:17 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define DEAD 4
 # define ARGU_ERROR 1
 # define NO_NUM_INT 2
-# define ZERO_NUM 3
+# define TOO_LOW 3
 # define INIT 1
 # define DELTA 2
 # define MALLOC_ERROR 10
@@ -82,12 +82,6 @@ typedef struct	s_p
 }				t_p;
 
 /*
-** NEW
-*/
-
-void			*check_death(void *arg);
-
-/*
 **		PHILO
 */
 
@@ -96,8 +90,8 @@ void			*init_philo(void *arg);
 void			*update_must_eat(void *arg);
 int				init_create_threads(t_p *p);
 void			unlink_sem_philos(void);
-void			kill_stop(void);
 void			*update_death(void *arg);
+void			*check_death(void *arg);
 
 /*
 **		UTILS
@@ -105,9 +99,7 @@ void			*update_death(void *arg);
 
 unsigned int	ft_strlen(const char *s);
 char			*ft_strdup(const char *src);
-void			ft_putnbr_ull(unsigned long n);
 void			ft_putstr_fd(char *str, int fd);
-void			ft_putnbr(int n);
 int				ft_atoi(const char *str);
 char			*ft_itoa(unsigned long num);
 char			*ft_strjoin(char const *s1, char const *s2);
@@ -125,6 +117,13 @@ int				parsing_argu(int argc, char **argv, t_p *philos);
 int				argument_error(int error);
 void			print_status(unsigned long ms, int philo_id, int status, \
 																t_p *p);
+
+/*
+**		FREE
+*/
+
+int				free_back(t_p *p, int i);
+int				ft_free(t_p *p, int ret);
 
 /*
 **		TIME

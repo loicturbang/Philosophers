@@ -6,24 +6,11 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/08 13:37:19 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/08 16:42:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_three.h"
-
-void	kill_stop(void)
-{
-	kill(0, SIGINT);
-	/*
-	while (++i < p->nb_philos)
-		kill(p->phil[i]->pid, SIGINT); //needed ?*/
-	//exit(0);
-}
-
-/*
-** NEW
-*/
 
 void	*update_must_eat(void *arg)
 {
@@ -36,7 +23,9 @@ void	*update_must_eat(void *arg)
 	{
 		sem_wait(p->phil[i]->must_eat);
 	}
-	p->life = 0;
+	i = -1;
+	while (++i < p->nb_philos)
+		sem_post(p->phil[i]->sem_death);
 	sem_post(p->sem_dead);
 	return (NULL);
 }
@@ -49,7 +38,7 @@ void	*check_death(void *arg)
 
 	philo = (t_philo *)arg;
 	p = philo->p;
-	if (philo->id +1 == p->nb_philos)
+	if (philo->id + 1 == p->nb_philos)
 	{
 		sem_post(p->sem_fork_sync_death);
 	}
@@ -88,5 +77,5 @@ void	*update_death(void *arg)
 	p = philo->p;
 	sem_wait(philo->sem_death);
 	p->life = 0;
-	exit(0); //free check return
+	exit(0);
 }
