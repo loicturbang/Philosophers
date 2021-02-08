@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/08 14:38:53 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/08 16:18:53 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,28 @@ int		create_threads(t_p *p)
 int		init_create_threads(t_p *p)
 {
 	int error;
+	int	i;
 
 	error = init_structure(p);
 	if (error != -2)
 	{
 		if (error == -1)
-			return (ft_free(p, MALLOC_ERROR));
+			ft_free(p, MALLOC_ERROR);
 		else
-			return (free_back(p, error));
+			free_back(p, error);
+		return (-1);
 	}
 	if (create_threads(p) != 0)
-		return (ft_free(p, 0));
+	{
+		ft_free(p, 0);
+		return (-1);
+	}
 	sem_wait(p->sem_dead);
-	return (ft_free(p, 0));
+	sem_close(p->sem_dead);
+	i = -1;
+	while (++i < p->nb_philos * 2)
+		sem_post(p->forks);
+	sem_close(p->forks);
+	ft_free(p, 0);
+	return (0);
 }

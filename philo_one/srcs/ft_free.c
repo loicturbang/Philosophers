@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 13:54:50 by user42            #+#    #+#             */
-/*   Updated: 2021/02/08 14:10:21 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/08 16:27:52 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,7 @@ int		ft_free(t_p *p, int ret)
 
 	i = -1;
 	while (++i < p->nb_philos)
-	{
-		pthread_mutex_destroy(&p->phil[i]->mutex);
 		free(p->phil[i]);
-	}
 	free(p->phil);
-	pthread_mutex_destroy(&p->mutex_dead);
 	return (ret);
 }
