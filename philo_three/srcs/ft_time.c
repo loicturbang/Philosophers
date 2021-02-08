@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 09:49:53 by user42            #+#    #+#             */
-/*   Updated: 2021/02/04 18:49:09 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/08 17:48:47 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ unsigned long		get_delta_time(void)
 	gettimeofday(&time_actual, NULL);
 	return (get_ms_time(time_actual) - start_time);
 }
-
 
 void				wait_ms(unsigned long ms_wait)
 {

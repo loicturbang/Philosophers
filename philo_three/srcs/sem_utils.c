@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:37:59 by user42            #+#    #+#             */
-/*   Updated: 2021/02/08 17:38:29 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/08 17:46:45 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,27 @@ void	unlink_sem_philos(void)
 		sem_unlink(philo_name);
 		free(philo_name);
 	}
+}
+
+int		sem_thead_init(t_p *p)
+{
+	p->forks = sem_open("forks", O_CREAT, 0600, p->nb_philos);
+	if (p->forks == SEM_FAILED)
+		return (-1);
+	p->sem_dead = sem_open("dead", O_CREAT, 0600, 0);
+	if (p->sem_dead == SEM_FAILED)
+		return (-1);
+	p->print = sem_open("print", O_CREAT, 0600, 1);
+	if (p->print == SEM_FAILED)
+		return (-1);
+	p->sem_dead_print = sem_open("dead_print", O_CREAT, 0600, 1);
+	if (p->sem_dead_print == SEM_FAILED)
+		return (-1);
+	p->sem_fork_sync_philo = sem_open("fork_sync_philo", O_CREAT, 0600, 0);
+	if (p->sem_fork_sync_philo == SEM_FAILED)
+		return (-1);
+	p->sem_fork_sync_death = sem_open("fork_sync_death", O_CREAT, 0600, 0);
+	if (p->sem_fork_sync_death == SEM_FAILED)
+		return (-1);
+	return (0);
 }
