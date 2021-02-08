@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:00 by user42            #+#    #+#             */
-/*   Updated: 2021/02/08 16:34:48 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/08 17:37:39 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,5 @@ int		main(int argc, char **argv)
 	init_create_threads(p);
 	free(p);
 	unlink_sem_philos();
-	//kill_stop();
 	return (0);
 }

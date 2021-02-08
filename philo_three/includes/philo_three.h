@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/08 16:38:17 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/08 17:39:05 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void			*init_philo(void *arg);
 void			*update_must_eat(void *arg);
 int				init_create_threads(t_p *p);
 void			unlink_sem_philos(void);
+int				create_sem_philos(t_p *p, int i);
 void			*update_death(void *arg);
 void			*check_death(void *arg);
 

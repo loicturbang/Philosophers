@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:49 by user42            #+#    #+#             */
-/*   Updated: 2021/02/08 16:55:03 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/08 17:37:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,8 @@
 ** sem_post --> give fork back
 */
 
-#include <stdio.h>
-
-void	*init_philo(void *arg)
+void	philo_life(t_p *p, t_philo *philo)
 {
-	t_philo		*philo;
-	t_p			*p;
-	
-
-	philo = (t_philo *)arg;
-	p = philo->p;
-	if (philo->id + 1 == p->nb_philos)
-		sem_post(p->sem_fork_sync_philo);
-	else
-	{
-		sem_wait(p->sem_fork_sync_philo);
-		sem_post(p->sem_fork_sync_philo);
-	}
 	get_delta_time();
 	while (p->life)
 	{
@@ -55,5 +40,22 @@ void	*init_philo(void *arg)
 		print_status(get_delta_time(), philo->id, THINK, p);
 	}
 	exit(0);
+}
+
+void	*init_philo(void *arg)
+{
+	t_philo		*philo;
+	t_p			*p;
+
+	philo = (t_philo *)arg;
+	p = philo->p;
+	if (philo->id + 1 == p->nb_philos)
+		sem_post(p->sem_fork_sync_philo);
+	else
+	{
+		sem_wait(p->sem_fork_sync_philo);
+		sem_post(p->sem_fork_sync_philo);
+	}
+	philo_life(p, philo);
 	return (NULL);
 }
