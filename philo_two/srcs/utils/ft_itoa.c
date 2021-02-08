@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 15:34:00 by user42            #+#    #+#             */
-/*   Updated: 2021/02/02 13:49:16 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/08 14:18:46 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ char		*ft_itoa(unsigned long num)
 
 	i = ft_count_num(num);
 	str = malloc(sizeof(char) * (i + 1));
+	if (!str)
+		return (NULL);
 	div = 1;
 	str[i--] = '\0';
 	while (div)

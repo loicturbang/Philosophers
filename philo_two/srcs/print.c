@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:26:54 by user42            #+#    #+#             */
-/*   Updated: 2021/02/04 14:01:28 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/08 14:39:52 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int				argument_error(int error)
 	else if (error == NO_NUM_INT)
 		ft_putstr_fd("\nError - Use only numeric characters as arguments\n", \
 															STDERR_FILENO);
-	else if (error == ZERO_NUM)
+	else if (error == TOO_LOW)
 		ft_putstr_fd("\nError - Use only num > 0 for nb_philo & nb_eat\n", \
 															STDERR_FILENO);
 	return (error);

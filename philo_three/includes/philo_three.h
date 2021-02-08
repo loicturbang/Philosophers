@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/08 11:18:33 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/08 13:38:03 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct	s_p
 	int				tt_sleep;
 	int				must_eat_nb;
 	int				nb_philos;
-	struct s_philo	**philos;
+	struct s_philo	**phil;
 	pthread_t		th_must_eat;
 	sem_t			*forks;
 	sem_t			*sem_dead;

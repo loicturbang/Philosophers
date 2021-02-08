@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/08 11:22:16 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/08 13:37:19 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	kill_stop(void)
 	kill(0, SIGINT);
 	/*
 	while (++i < p->nb_philos)
-		kill(p->philos[i]->pid, SIGINT); //needed ?*/
+		kill(p->phil[i]->pid, SIGINT); //needed ?*/
 	//exit(0);
 }
 
@@ -34,7 +34,7 @@ void	*update_must_eat(void *arg)
 	i = -1;
 	while (++i < p->nb_philos)
 	{
-		sem_wait(p->philos[i]->must_eat);
+		sem_wait(p->phil[i]->must_eat);
 	}
 	p->life = 0;
 	sem_post(p->sem_dead);
@@ -68,7 +68,7 @@ void	*check_death(void *arg)
 			i = -1;
 			while (++i < p->nb_philos)
 				if (i != philo->id)
-					sem_post(p->philos[i]->sem_death);
+					sem_post(p->phil[i]->sem_death);
 			print_status(get_delta_time(), philo->id, DEAD, p);
 			sem_post(p->sem_dead);
 			sem_post(philo->sem_death);

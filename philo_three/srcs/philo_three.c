@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:00 by user42            #+#    #+#             */
-/*   Updated: 2021/02/05 17:04:35 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/08 13:37:19 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int		init_parse(t_p *p, int argc, char **argv)
 		argument_error(ZERO_NUM);
 		return (ZERO_NUM);
 	}
-	p->philos = malloc(sizeof(t_philo) * p->nb_philos);
-	if (!p->philos)
+	p->phil = malloc(sizeof(t_philo) * p->nb_philos);
+	if (!p->phil)
 	{
 		free(p);
 		return (MALLOC_ERROR);

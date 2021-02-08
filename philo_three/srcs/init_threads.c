@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/08 11:22:36 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/08 13:37:19 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ int		check_malloc_free(t_philo *philo, t_p *p, int i)
 	{
 		while (i >= 0)
 		{
-			free(p->philos[i]);
+			free(p->phil[i]);
 			i--;
 		}
-		free(p->philos);
+		free(p->phil);
 		return (MALLOC_ERROR);
 	}
 	return (0);
@@ -54,10 +54,10 @@ int		create_sem_philos(t_p *p, int i)
 	char	*philo_name;
 
 	philo_name = get_sem_name(SEM_MUST_EAT, i);
-	p->philos[i]->must_eat = sem_open(philo_name, O_CREAT, 0600, 0); //check sem open value
+	p->phil[i]->must_eat = sem_open(philo_name, O_CREAT, 0600, 0); //check sem open value
 	free(philo_name);
 	philo_name = get_sem_name(SEM_DEATH, i);
-	p->philos[i]->sem_death = sem_open(philo_name, O_CREAT, 0600, 0); //check sem open value
+	p->phil[i]->sem_death = sem_open(philo_name, O_CREAT, 0600, 0); //check sem open value
 	free(philo_name);
 	return (0);
 }
@@ -93,13 +93,13 @@ int		init_structure(t_p *p)
 	p->life = 1;
 	while (++i < p->nb_philos)
 	{
-		p->philos[i] = malloc(sizeof(t_philo));
-		if (check_malloc_free(p->philos[i], p, i) == MALLOC_ERROR)
+		p->phil[i] = malloc(sizeof(t_philo));
+		if (check_malloc_free(p->phil[i], p, i) == MALLOC_ERROR)
 			return (MALLOC_ERROR);
-		p->philos[i]->p = p;
-		p->philos[i]->id = i;
-		p->philos[i]->last_eat = 0;
-		p->philos[i]->nb_eat = 0;
+		p->phil[i]->p = p;
+		p->phil[i]->id = i;
+		p->phil[i]->last_eat = 0;
+		p->phil[i]->nb_eat = 0;
 		create_sem_philos(p, i);
 	}
 	p->forks = sem_open("forks", O_CREAT, 0600, p->nb_philos);
@@ -120,27 +120,27 @@ int		create_threads(t_p *p)
 	i = -1;
 	while (++i < p->nb_philos && p->life)
 	{
-		p->philos[i]->pid = fork();
-		if (p->philos[i]->pid < 0)
+		p->phil[i]->pid = fork();
+		if (p->phil[i]->pid < 0)
 			return (-1);
-		else if (p->philos[i]->pid == 0)
+		else if (p->phil[i]->pid == 0)
 		{
-			if (pthread_create(&p->philos[i]->th_eat, NULL, &init_philo, p->philos[i]) != 0)
+			if (pthread_create(&p->phil[i]->th_eat, NULL, &init_philo, p->phil[i]) != 0)
 				return (-1);
-			if (pthread_create(&p->philos[i]->th_death, NULL, &check_death, p->philos[i]) != 0)
+			if (pthread_create(&p->phil[i]->th_death, NULL, &check_death, p->phil[i]) != 0)
 				return (-1);
-			if (pthread_create(&p->philos[i]->th_u_death, NULL, &update_death, p->philos[i]) != 0)
+			if (pthread_create(&p->phil[i]->th_u_death, NULL, &update_death, p->phil[i]) != 0)
 				return (-1);
-			pthread_join(p->philos[i]->th_death, NULL);
-			pthread_join(p->philos[i]->th_u_death, NULL);
-			pthread_join(p->philos[i]->th_eat, NULL);
+			pthread_join(p->phil[i]->th_death, NULL);
+			pthread_join(p->phil[i]->th_u_death, NULL);
+			pthread_join(p->phil[i]->th_eat, NULL);
 			exit(0);
 		}
 		usleep(5);
 	}
 	i = -1;
 	while (++i < p->nb_philos && p->life)
-		waitpid(p->philos[i]->pid, 0 , 0);
+		waitpid(p->phil[i]->pid, 0 , 0);
 	if (p->must_eat_nb != -1)
 		if (pthread_create(&p->th_must_eat, NULL, &update_must_eat, p) != 0)
 			return (-1);
@@ -163,7 +163,7 @@ int		init_create_threads(t_p *p)
 	sem_close(p->forks);
 	i = -1;
 	while (++i < p->nb_philos)
-		free(p->philos[i]);
-	free(p->philos);
+		free(p->phil[i]);
+	free(p->phil);
 	return (0);
 }

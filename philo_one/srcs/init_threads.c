@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/08 14:10:12 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/08 14:29:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int		init_create_threads(t_p *p)
 			ft_free(p, MALLOC_ERROR);
 		else
 			free_back(p, error);
+		return (-1);
 	}
 	if (create_threads(p) != 0)
 		return (ft_free(p, 0));
