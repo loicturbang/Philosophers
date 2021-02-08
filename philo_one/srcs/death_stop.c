@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/08 13:37:19 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/08 14:10:25 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ int		check_eat_death(t_p *p, int *finish_eat, int i)
 		pthread_mutex_unlock(&p->mutex_dead);
 		return (1);
 	}
-	if ((get_delta_time(p->phil[i]) - p->phil[i]->last_eat) >= \
+	if ((get_delta_time() - p->phil[i]->last_eat) >= \
 											(unsigned long)p->tt_die)
 	{
 		p->life = 0;
-		print_status(get_delta_time(p->phil[i]), p->phil[i]->id, DEAD, p);
+		print_status(get_delta_time(), p->phil[i]->id, DEAD, p);
 		pthread_mutex_unlock(&p->mutex_dead);
 		return (1);
 	}

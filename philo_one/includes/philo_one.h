@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/08 13:56:24 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/08 14:12:21 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ typedef struct	s_philo
 	int					nb_eat;
 	int					id;
 	unsigned long		last_eat;
-	struct timeval		time_start;
-	struct timeval		time_actual;
 	pthread_t			th;
 	pthread_mutex_t		mutex;
 	struct s_p			*p;
@@ -109,7 +107,7 @@ int				ft_free(t_p *p, int ret);
 **		TIME
 */
 
-unsigned long	get_delta_time(t_philo *philo);
-void			wait_ms(unsigned long ms_wait, t_philo *p);
+unsigned long	get_delta_time(void);
+void			wait_ms(unsigned long ms_wait);
 
 #endif

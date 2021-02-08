@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:26:54 by user42            #+#    #+#             */
-/*   Updated: 2021/02/08 13:30:01 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/08 14:08:15 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void			print_status(unsigned long ms, int philo_id, int status, \
 	char	*str;
 	char	*str2;
 	char	*tmp;
-	
+
 	if (p->life || status == DEAD)
 	{
 		str = ft_itoa(ms);
@@ -54,7 +54,7 @@ void			print_status(unsigned long ms, int philo_id, int status, \
 		free(str2);
 		write(1, str, ft_strlen(str));
 		free(str);
-	}	
+	}
 }
 
 int				argument_error(int error)

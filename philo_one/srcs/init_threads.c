@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/08 13:58:34 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/08 14:10:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int		init_structure(t_p *p)
 			return (i);
 		p->phil[i]->p = p;
 		p->phil[i]->id = i;
-		get_delta_time(p->phil[i]);
 		p->phil[i]->last_eat = 0;
 		p->phil[i]->nb_eat = 0;
 	}
@@ -41,6 +40,7 @@ int		create_threads(t_p *p)
 	int i;
 
 	i = -1;
+	get_delta_time();
 	while (++i < p->nb_philos)
 	{
 		if (pthread_create(&p->phil[i]->th, NULL, &init_philo, p->phil[i]) != 0)
