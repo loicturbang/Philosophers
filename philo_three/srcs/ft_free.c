@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 13:54:50 by user42            #+#    #+#             */
-/*   Updated: 2021/02/08 16:43:12 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/08 17:18:32 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ int		free_back(t_p *p, int i)
 	while (--i >= 0)
 		free(p->phil[i]);
 	free(p->phil);
-	sem_close(p->forks);
-	sem_close(p->sem_dead);
+	unlink_sem_philos();
 	return (0);
 }
 
@@ -30,5 +29,6 @@ int		ft_free(t_p *p, int ret)
 	while (++i < p->nb_philos)
 		free(p->phil[i]);
 	free(p->phil);
+	unlink_sem_philos();
 	return (ret);
 }

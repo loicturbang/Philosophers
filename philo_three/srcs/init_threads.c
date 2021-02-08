@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/08 17:04:47 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/08 17:19:21 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,15 @@ int		create_sem_philos(t_p *p, int i)
 	char	*philo_name;
 
 	philo_name = get_sem_name(SEM_MUST_EAT, i);
-	p->phil[i]->must_eat = sem_open(philo_name, O_CREAT, 0600, 0); //check sem open value
+	p->phil[i]->must_eat = sem_open(philo_name, O_CREAT, 0600, 0);
 	free(philo_name);
+	if (p->phil[i]->must_eat == SEM_FAILED)
+		return (-1);
 	philo_name = get_sem_name(SEM_DEATH, i);
-	p->phil[i]->sem_death = sem_open(philo_name, O_CREAT, 0600, 0); //check sem open value
+	p->phil[i]->sem_death = sem_open(philo_name, O_CREAT, 0600, 0);
 	free(philo_name);
+	if (p->phil[i]->sem_death == SEM_FAILED)
+		return (-1);
 	return (0);
 }
 
@@ -100,18 +104,29 @@ int		init_structure(t_p *p)
 		p->phil[i]->id = i;
 		p->phil[i]->last_eat = 0;
 		p->phil[i]->nb_eat = 0;
-		create_sem_philos(p, i);
+		if (create_sem_philos(p, i) == -1)
+			return (i);
 	}
 	p->forks = sem_open("forks", O_CREAT, 0600, p->nb_philos);
+	if (p->forks == SEM_FAILED)
+		return (-1);
 	p->sem_dead = sem_open("dead", O_CREAT, 0600, 0);
+	if (p->sem_dead == SEM_FAILED)
+		return (-1);
 	p->print = sem_open("print", O_CREAT, 0600, 1);
+	if (p->print == SEM_FAILED)
+		return (-1);
 	p->sem_dead_print = sem_open("dead_print", O_CREAT, 0600, 1);
+	if (p->sem_dead_print == SEM_FAILED)
+		return (-1);
 	p->sem_fork_sync_philo = sem_open("fork_sync_philo", O_CREAT, 0600, 0);
-	p->sem_fork_sync_death = sem_open("fork_sync_death", O_CREAT, 0600, 0);	
-	return (0);
+	if (p->sem_fork_sync_philo == SEM_FAILED)
+		return (-1);
+	p->sem_fork_sync_death = sem_open("fork_sync_death", O_CREAT, 0600, 0);
+	if (p->sem_fork_sync_death == SEM_FAILED)
+		return (-1);
+	return (-2);
 }
-
-#include <stdio.h>
 
 int		create_threads(t_p *p)
 {
@@ -131,9 +146,12 @@ int		create_threads(t_p *p)
 				return (-1);
 			if (pthread_create(&p->phil[i]->th_u_death, NULL, &update_death, p->phil[i]) != 0)
 				return (-1);
-			pthread_join(p->phil[i]->th_death, NULL);
-			pthread_join(p->phil[i]->th_u_death, NULL);
-			pthread_join(p->phil[i]->th_eat, NULL);
+			if (pthread_join(p->phil[i]->th_death, NULL) != 0)
+				return (-1);
+			if (pthread_join(p->phil[i]->th_u_death, NULL) != 0)
+				return (-1);
+			if (pthread_join(p->phil[i]->th_eat, NULL) != 0)
+				return (-1);
 			exit(0);
 		}
 		usleep(5);
@@ -150,20 +168,28 @@ int		create_threads(t_p *p)
 int		init_create_threads(t_p *p)
 {
 	int i;
+	int error;
 
-	if (init_structure(p) != 0)
+	error = init_structure(p);
+	if (error != -2)
+	{
+		if (error == -1)
+			ft_free(p, MALLOC_ERROR);
+		else
+			free_back(p, error);
 		return (-1);
+	}
 	if (create_threads(p) != 0)
+	{
+		ft_free(p, 0);
 		return (-1);
+	}
 	sem_wait(p->sem_dead);
 	sem_close(p->sem_dead);
 	i = -1;
 	while (++i < p->nb_philos * 2)
 		sem_post(p->forks);
 	sem_close(p->forks);
-	i = -1;
-	while (++i < p->nb_philos)
-		free(p->phil[i]);
-	free(p->phil);
+	ft_free(p, 0);
 	return (0);
 }
