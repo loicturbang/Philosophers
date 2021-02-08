@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/04 13:54:07 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/08 13:37:19 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		check_eat_death(t_p *p, int *finish_eat, int i)
 {
-	if (p->must_eat_nb != -1 && (p->philos[i]->nb_eat >= p->must_eat_nb))
+	if (p->must_eat_nb != -1 && (p->phil[i]->nb_eat >= p->must_eat_nb))
 		(*finish_eat)++;
 	if (*finish_eat == p->nb_philos)
 	{
@@ -22,11 +22,11 @@ int		check_eat_death(t_p *p, int *finish_eat, int i)
 		pthread_mutex_unlock(&p->mutex_dead);
 		return (1);
 	}
-	if ((get_delta_time(p->philos[i]) - p->philos[i]->last_eat) >= \
+	if ((get_delta_time(p->phil[i]) - p->phil[i]->last_eat) >= \
 											(unsigned long)p->tt_die)
 	{
 		p->life = 0;
-		print_status(get_delta_time(p->philos[i]), p->philos[i]->id, DEAD, p);
+		print_status(get_delta_time(p->phil[i]), p->phil[i]->id, DEAD, p);
 		pthread_mutex_unlock(&p->mutex_dead);
 		return (1);
 	}
@@ -44,7 +44,7 @@ void	*init_check_death(void *arg)
 	{
 		i = -1;
 		finish_eat = 0;
-		while (p->philos[++i] && i < p->nb_philos)
+		while (p->phil[++i] && i < p->nb_philos)
 		{
 			if (check_eat_death(p, &finish_eat, i) == 1)
 				return (NULL);

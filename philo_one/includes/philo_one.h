@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/03 11:03:27 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/08 13:56:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define DEAD 4
 # define ARGU_ERROR 1
 # define NO_NUM_INT 2
-# define ZERO_NUM 3
+# define TOO_LOW 3
 # define INIT 1
 # define DELTA 2
 # define MALLOC_ERROR 10
@@ -59,7 +59,7 @@ typedef struct	s_p
 	int				tt_sleep;
 	int				must_eat_nb;
 	int				nb_philos;
-	struct s_philo	**philos;
+	struct s_philo	**phil;
 	pthread_t		th_death;
 	pthread_mutex_t mutex_dead;
 	int				life;
@@ -79,9 +79,7 @@ int				init_create_threads(t_p *p);
 
 unsigned int	ft_strlen(const char *s);
 char			*ft_strdup(const char *src);
-void			ft_putnbr_ull(unsigned long n);
 void			ft_putstr_fd(char *str, int fd);
-void			ft_putnbr(int n);
 int				ft_atoi(const char *str);
 char			*ft_itoa(unsigned long num);
 char			*ft_strjoin(char const *s1, char const *s2);
@@ -99,6 +97,13 @@ int				parsing_argu(int argc, char **argv, t_p *philos);
 int				argument_error(int error);
 void			print_status(unsigned long ms, int philo_id, int status, \
 																	t_p *p);
+
+/*
+**		FREE
+*/
+
+int				free_back(t_p *p, int i);
+int				ft_free(t_p *p, int ret);
 
 /*
 **		TIME

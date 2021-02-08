@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:26:54 by user42            #+#    #+#             */
-/*   Updated: 2021/02/04 13:54:43 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/08 13:30:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,15 @@ int				argument_error(int error)
 {
 	if (error == ARGU_ERROR)
 	{
-		ft_putstr_fd("\nBad number of arguments\nUse ", STDERR_FILENO);
+		ft_putstr_fd("Bad number of arguments:\nUse ", STDERR_FILENO);
 		ft_putstr_fd("./philo_one [nb_philo] [tt_die]", STDERR_FILENO);
 		ft_putstr_fd(" [tt_eat] [tt_sleep] (opt. nb eat)\n", STDERR_FILENO);
 	}
 	else if (error == NO_NUM_INT)
-		ft_putstr_fd("\nError - Use only numeric characters as arguments\n", \
+		ft_putstr_fd("Error: Use only numeric characters as arguments\n", \
 															STDERR_FILENO);
-	else if (error == ZERO_NUM)
-		ft_putstr_fd("\nError - Use only num > 0 for nb_philo & nb_eat\n", \
+	else if (error == TOO_LOW)
+		ft_putstr_fd("Error:\nnb_philo: min 2\nnb_eat: min 1\n", \
 															STDERR_FILENO);
 	return (error);
 }
