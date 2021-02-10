@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/10 10:22:02 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/10 11:12:23 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ void	check_death2(t_p *p, t_philo *philo)
 	print_status(get_delta_time(p), philo->id, DEAD, p);
 	sem_post(p->sem_dead);
 	sem_post(philo->sem_death);
+	p->life =0;
+	i = -1;
+	exit(0);
 }
 
 void	*check_death(void *arg)
