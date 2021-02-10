@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/10 10:05:25 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/10 10:22:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct	s_p
 	sem_t			*dead_child;
 	sem_t			*print;
 	sem_t			*must_eat;
+	unsigned long	start_time;
 	int				life;
 }				t_p;
 
@@ -137,7 +138,7 @@ int				ft_free(t_p *p, int ret);
 **		TIME
 */
 
-unsigned long	get_delta_time(void);
-void			wait_ms(unsigned long ms_wait);
+unsigned long	get_delta_time(t_p *p);
+void			wait_ms(unsigned long ms_wait, t_p *p);
 
 #endif
