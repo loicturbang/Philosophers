@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/10 10:22:02 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/10 14:13:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,7 @@ void	*check_death(void *arg)
 
 	philo = (t_philo *)arg;
 	p = philo->p;
-	if (philo->id + 1 == p->nb_philos)
-		sem_post(p->sem_fork_sync_death);
-	else
-	{
-		sem_wait(p->sem_fork_sync_death);
-		sem_post(p->sem_fork_sync_death);
-	}
+	sem_wait(p->sem_fork_sync);
 	get_delta_time(p);
 	while (1)
 	{

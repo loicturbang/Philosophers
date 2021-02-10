@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/10 10:22:24 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/10 14:12:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ typedef struct	s_p
 	pthread_t		th_must_eat;
 	sem_t			*forks;
 	sem_t			*sem_dead;
-	sem_t			*sem_fork_sync_philo;
-	sem_t			*sem_fork_sync_death;
+	sem_t			*sem_fork_sync;
 	sem_t			*sem_dead_print;
 	sem_t			*dead_child;
 	sem_t			*print;
@@ -99,7 +98,7 @@ void			*check_death(void *arg);
 
 void			unlink_sem_philos(void);
 int				create_sem_philos(t_p *p, int i);
-int				sem_thead_init(t_p *p);
+int				sem_thread_init(t_p *p);
 
 /*
 **		UTILS

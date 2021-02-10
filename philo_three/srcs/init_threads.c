@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/10 10:18:52 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/10 14:12:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		init_structure(t_p *p)
 		if (create_sem_philos(p, i) == -1)
 			return (i);
 	}
-	if (sem_thead_init(p) == -1)
+	if (sem_thread_init(p) == -1)
 		return (-1);
 	return (-2);
 }
