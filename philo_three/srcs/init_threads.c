@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/10 11:15:24 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/10 10:18:52 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,14 @@ int		create_check_threads(t_p *p, int i)
 		return (-1);
 	if (pthread_create(&p->phil[i]->th_death, NULL, &check_death, \
 															p->phil[i]) != 0)
-		return (-1);/*
+		return (-1);
 	if (pthread_create(&p->phil[i]->th_u_death, NULL, &update_death, \
 															p->phil[i]) != 0)
-		return (-1);*/
+		return (-1);
 	if (pthread_join(p->phil[i]->th_death, NULL) != 0)
-		return (-1);/*
+		return (-1);
 	if (pthread_join(p->phil[i]->th_u_death, NULL) != 0)
-		return (-1);*/
+		return (-1);
 	if (pthread_join(p->phil[i]->th_eat, NULL) != 0)
 		return (-1);
 	return (0);
@@ -91,13 +91,9 @@ int		create_threads(t_p *p)
 	if (p->must_eat_nb != -1)
 		if (pthread_create(&p->th_must_eat, NULL, &update_must_eat, p) != 0)
 			return (-1);
-	i = -1;	
-	sem_wait(p->sem_dead);
-	while (++i < p->nb_philos)
-		kill(p->phil[i]->pid, SIGINT);
-	/*
+	i = -1;
 	while (++i < p->nb_philos && p->life)
-		waitpid(p->phil[i]->pid, 0, 0);*/
+		waitpid(p->phil[i]->pid, 0, 0);
 	return (0);
 }
 
@@ -120,7 +116,7 @@ int		init_create_threads(t_p *p)
 		ft_free(p, 0);
 		return (-1);
 	}
-	//sem_wait(p->sem_dead);
+	sem_wait(p->sem_dead);
 	sem_close(p->sem_dead);
 	i = -1;
 	while (++i < p->nb_philos * 2)
