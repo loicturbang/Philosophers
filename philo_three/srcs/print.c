@@ -6,12 +6,13 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:26:54 by user42            #+#    #+#             */
-/*   Updated: 2021/02/08 17:35:26 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/10 10:13:54 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_three.h"
 
+/*
 char			*get_status(int status)
 {
 	char	*str;
@@ -56,6 +57,37 @@ void			print_status(unsigned long ms, int philo_id, int status, \
 		free(str2);
 		write(1, str, ft_strlen(str));
 		free(str);
+		if (status != DEAD)
+			sem_post(p->print);
+	}
+}*/
+
+char			*get_status(int status)
+{
+	if (status == SLEEP)
+		ft_putstr_fd(" is sleeping\n", 1);
+	else if (status == EAT)
+		ft_putstr_fd(" is eating\n", 1);
+	else if (status == FORK)
+		ft_putstr_fd(" has taken a fork\n", 1);
+	else if (status == THINK)
+		ft_putstr_fd(" is thinking\n", 1);
+	else if (status == DEAD)
+		ft_putstr_fd(" died\n", 1);
+	return (NULL); //remove
+}
+
+void			print_status(unsigned long ms, int philo_id, int status, \
+															t_p *p)
+{
+	if (p->life || status == DEAD)
+	{
+		if (status != DEAD)
+			sem_wait(p->print);
+		ft_putnbr_ul(ms);
+		ft_putstr_fd(" ", 1);
+		ft_putnbr_ul((unsigned long)(philo_id + 1));
+		get_status(status);
 		if (status != DEAD)
 			sem_post(p->print);
 	}

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/10 09:10:17 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/10 10:05:25 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void			ft_putstr_fd(char *str, int fd);
 int				ft_atoi(const char *str);
 char			*ft_itoa(unsigned long num);
 char			*ft_strjoin(char const *s1, char const *s2);
+void			ft_putnbr_ul(unsigned long n);
 
 /*
 **		PARSING
