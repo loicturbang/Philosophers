@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/08 17:48:38 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/10 09:10:31 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int		init_structure(t_p *p)
 		p->phil[i]->id = i;
 		p->phil[i]->last_eat = 0;
 		p->phil[i]->nb_eat = 0;
+		p->phil[i]->sem_done = 0;
 		if (create_sem_philos(p, i) == -1)
 			return (i);
 	}

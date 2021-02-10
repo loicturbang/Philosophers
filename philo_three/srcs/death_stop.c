@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/09 09:31:22 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/10 09:09:20 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*update_must_eat(void *arg)
 	p = (t_p *)arg;
 	i = -1;
 	while (++i < p->nb_philos)
-		sem_wait(p->phil[i]->must_eat);
+		sem_wait(p->must_eat);
 	i = -1;
 	sem_wait(p->print);
 	while (++i < p->nb_philos)

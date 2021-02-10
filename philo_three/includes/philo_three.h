@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/08 17:47:23 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/10 09:10:17 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@
 # define DELTA 2
 # define MALLOC_ERROR 10
 # define SEM_DEATH 1
-# define SEM_MUST_EAT 2
 
 /*
 ** s_philo
@@ -45,11 +44,11 @@ typedef struct	s_philo
 	int					status;
 	int					nb_eat;
 	int					id;
+	int					sem_done;
 	unsigned long		last_eat;
 	struct timeval		time_start;
 	struct timeval		time_actual;
 	int					pid;
-	sem_t				*must_eat;
 	sem_t				*sem_death;
 	struct s_p			*p;
 	pthread_t			th_eat;
@@ -78,6 +77,7 @@ typedef struct	s_p
 	sem_t			*sem_dead_print;
 	sem_t			*dead_child;
 	sem_t			*print;
+	sem_t			*must_eat;
 	int				life;
 }				t_p;
 
