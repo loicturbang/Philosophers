@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:26:54 by user42            #+#    #+#             */
-/*   Updated: 2021/02/10 10:16:55 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/11 10:02:50 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,20 @@ int				argument_error(int error)
 	else if (error == TOO_LOW)
 		ft_putstr_fd("\nError - Use only num > 0 for nb_philo & nb_eat\n", \
 															STDERR_FILENO);
+	return (error);
+}
+
+int				show_error(int error)
+{
+	if (error == ERR_FORK)
+		ft_putstr_fd("Error: fork failed\n", STDERR_FILENO);
+	else if (error == ERR_SEM_OPEN)
+		ft_putstr_fd("Error: sem_open failed\n", STDERR_FILENO);
+	else if (error == ERR_TH_CREAT)
+		ft_putstr_fd("Error: pthread_create failed\n", STDERR_FILENO);
+	else if (error == ERR_TH_JOIN)
+		ft_putstr_fd("Error: pthread_join failed\n", STDERR_FILENO);
+	else if (error == ERR_MALLOC)
+		ft_putstr_fd("Error: pthread_join failed\n", STDERR_FILENO);
 	return (error);
 }

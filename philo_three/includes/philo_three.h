@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/10 14:12:42 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/11 10:02:37 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,12 @@
 # define TOO_LOW 3
 # define INIT 1
 # define DELTA 2
-# define MALLOC_ERROR 10
 # define SEM_DEATH 1
+# define ERR_FORK 1
+# define ERR_SEM_OPEN 2
+# define ERR_TH_CREAT 3
+# define ERR_TH_JOIN 4
+# define ERR_MALLOC 4
 
 /*
 ** s_philo
@@ -125,6 +129,7 @@ int				parsing_argu(int argc, char **argv, t_p *philos);
 int				argument_error(int error);
 void			print_status(unsigned long ms, int philo_id, int status, \
 																t_p *p);
+int				show_error(int error);
 
 /*
 **		FREE

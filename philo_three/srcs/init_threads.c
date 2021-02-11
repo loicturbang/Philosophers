@@ -6,26 +6,11 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/10 14:12:42 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/11 10:08:44 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_three.h"
-
-int		check_malloc_free(t_philo *philo, t_p *p, int i)
-{
-	if (!philo)
-	{
-		while (i >= 0)
-		{
-			free(p->phil[i]);
-			i--;
-		}
-		free(p->phil);
-		return (MALLOC_ERROR);
-	}
-	return (0);
-}
 
 int		init_structure(t_p *p)
 {
@@ -37,17 +22,20 @@ int		init_structure(t_p *p)
 	while (++i < p->nb_philos)
 	{
 		p->phil[i] = malloc(sizeof(t_philo));
-		if (check_malloc_free(p->phil[i], p, i) == MALLOC_ERROR)
-			return (MALLOC_ERROR);
+		if (!p->phil[i])
+		{
+			show_error(ERR_MALLOC);
+			return (i);
+		}
 		p->phil[i]->p = p;
 		p->phil[i]->id = i;
 		p->phil[i]->last_eat = 0;
 		p->phil[i]->nb_eat = 0;
 		p->phil[i]->sem_done = 0;
-		if (create_sem_philos(p, i) == -1)
+		if (create_sem_philos(p, i) != 0)
 			return (i);
 	}
-	if (sem_thread_init(p) == -1)
+	if (sem_thread_init(p) != 0)
 		return (-1);
 	return (-2);
 }
@@ -55,19 +43,19 @@ int		init_structure(t_p *p)
 int		create_check_threads(t_p *p, int i)
 {
 	if (pthread_create(&p->phil[i]->th_eat, NULL, &init_philo, p->phil[i]) != 0)
-		return (-1);
+		return (show_error(ERR_TH_CREAT));
 	if (pthread_create(&p->phil[i]->th_death, NULL, &check_death, \
 															p->phil[i]) != 0)
-		return (-1);
+		return (show_error(ERR_TH_CREAT));
 	if (pthread_create(&p->phil[i]->th_u_death, NULL, &update_death, \
 															p->phil[i]) != 0)
-		return (-1);
+		return (show_error(ERR_TH_CREAT));
 	if (pthread_join(p->phil[i]->th_death, NULL) != 0)
-		return (-1);
+		return (show_error(ERR_TH_JOIN));
 	if (pthread_join(p->phil[i]->th_u_death, NULL) != 0)
-		return (-1);
+		return (show_error(ERR_TH_JOIN));
 	if (pthread_join(p->phil[i]->th_eat, NULL) != 0)
-		return (-1);
+		return (show_error(ERR_TH_JOIN));
 	return (0);
 }
 
@@ -80,17 +68,18 @@ int		create_threads(t_p *p)
 	{
 		p->phil[i]->pid = fork();
 		if (p->phil[i]->pid < 0)
-			return (-1);
+			return (show_error(ERR_FORK));
 		else if (p->phil[i]->pid == 0)
 		{
-			create_check_threads(p, i);
+			if (create_check_threads(p, i) != 0)
+				return (-1);
 			exit(0);
 		}
 		usleep(5);
 	}
 	if (p->must_eat_nb != -1)
 		if (pthread_create(&p->th_must_eat, NULL, &update_must_eat, p) != 0)
-			return (-1);
+			return (show_error(ERR_TH_CREAT));
 	i = -1;
 	while (++i < p->nb_philos && p->life)
 		waitpid(p->phil[i]->pid, 0, 0);
@@ -106,7 +95,7 @@ int		init_create_threads(t_p *p)
 	if (error != -2)
 	{
 		if (error == -1)
-			ft_free(p, MALLOC_ERROR);
+			ft_free(p, ERR_MALLOC);
 		else
 			free_back(p, error);
 		return (-1);
