@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:33:47 by user42            #+#    #+#             */
-/*   Updated: 2021/02/11 11:29:42 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/11 12:57:36 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,14 @@ void	print_lst(t_p *p)
 void	*init_print(void *arg)
 {
 	t_p		*p;
-
-	p = (t_p *)arg;
-	while (p->life)
+	t_philo	*philo;
+	
+	philo = (t_philo *)arg;
+	p = philo->p;
+	sem_wait(p->sem_fork_sync);
+	get_delta_time(p);
+	//remove time condition and protect add list to add only elements before die
+	while (p->life && get_delta_time(p) - philo->last_eat < (unsigned long)p->tt_die)
 	{
 		usleep(500);
 		if (p->to_print)
