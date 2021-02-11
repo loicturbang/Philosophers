@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:49 by user42            #+#    #+#             */
-/*   Updated: 2021/02/10 14:12:27 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/11 10:19:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	philo_life(t_p *p, t_philo *philo)
 	get_delta_time(p);
 	while (p->life)
 	{
+		sem_wait(p->fork_check);
 		sem_wait(p->forks);
 		sem_wait(p->forks);
 		print_status(get_delta_time(p), philo->id, FORK, p);
@@ -39,6 +40,7 @@ void	philo_life(t_p *p, t_philo *philo)
 		wait_ms(p->tt_eat, p);
 		sem_post(p->forks);
 		sem_post(p->forks);
+		sem_post(p->fork_check);
 		print_status(get_delta_time(p), philo->id, SLEEP, p);
 		wait_ms(p->tt_sleep, p);
 		print_status(get_delta_time(p), philo->id, THINK, p);
