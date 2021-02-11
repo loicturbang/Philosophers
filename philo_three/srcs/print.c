@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:26:54 by user42            #+#    #+#             */
-/*   Updated: 2021/02/11 11:03:11 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/11 11:17:05 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char			*get_print(unsigned long ms, int philo_id, int status, t_p *p)
 	str = ft_strjoin(tmp, str2);
 	free(tmp);
 	free(str2);
-	write(1, str, ft_strlen(str));
+	//write(1, str, ft_strlen(str));
 	return (str);
 }
 
