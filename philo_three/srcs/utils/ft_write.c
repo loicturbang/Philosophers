@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:33:47 by user42            #+#    #+#             */
-/*   Updated: 2021/02/11 12:57:36 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/11 13:26:15 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int		add_print(t_p *p, char *str)
 {
 	t_list *lst;
 
+	sem_wait(p->add_list);
 	if (p->to_print == NULL)
 	{
 		p->to_print = ft_lstnew(str);
@@ -29,6 +30,7 @@ int		add_print(t_p *p, char *str)
 			return (show_error(ERR_MALLOC));
 		ft_lstadd_back(&p->to_print, lst);
 	}
+	sem_post(p->add_list);
 	return (0);
 }
 
@@ -61,7 +63,7 @@ void	*init_print(void *arg)
 	sem_wait(p->sem_fork_sync);
 	get_delta_time(p);
 	//remove time condition and protect add list to add only elements before die
-	while (p->life && get_delta_time(p) - philo->last_eat < (unsigned long)p->tt_die)
+	while (p->life)
 	{
 		usleep(500);
 		if (p->to_print)
