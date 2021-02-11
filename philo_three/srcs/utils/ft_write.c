@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:33:47 by user42            #+#    #+#             */
-/*   Updated: 2021/02/11 11:25:03 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/11 11:29:42 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ void	print_lst(t_p *p)
 	void	*ptr;
 
 	ptr = p->to_print;
-	if (p->life)
-		sem_wait(p->print);
+	sem_wait(p->print);
 	write(1, "a", 1);
 	while (p->to_print)
 	{
@@ -49,8 +48,7 @@ void	print_lst(t_p *p)
 	p->to_print = ptr;
 	free_print_list(p);
 	p->to_print = NULL;
-	if (p->life)
-		sem_wait(p->print);
+	sem_post(p->print);
 }
 
 void	*init_print(void *arg)
