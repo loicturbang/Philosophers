@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:37:59 by user42            #+#    #+#             */
-/*   Updated: 2021/02/10 14:22:00 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/10 14:12:53 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	unlink_sem_philos(void)
 	sem_unlink("dead_print");
 	sem_unlink("fork_sync");
 	sem_unlink("print");
-	sem_unlink("fork_check");
 	while (--i >= 0)
 	{
 		philo_name = get_sem_name(SEM_DEATH, i);
@@ -79,9 +78,6 @@ int		sem_thread_init(t_p *p)
 		return (-1);
 	p->must_eat = sem_open("must_eat", O_CREAT, 0600, 0);
 	if (p->must_eat == SEM_FAILED)
-		return (-1);
-	p->fork_check = sem_open("fork_check", O_CREAT, 0600, 1);
-	if (p->fork_check == SEM_FAILED)
 		return (-1);
 	return (0);
 }
