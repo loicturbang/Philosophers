@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:49 by user42            #+#    #+#             */
-/*   Updated: 2021/02/11 10:19:36 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/11 10:59:30 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	philo_life(t_p *p, t_philo *philo)
 		sem_wait(p->fork_check);
 		sem_wait(p->forks);
 		sem_wait(p->forks);
-		print_status(get_delta_time(p), philo->id, FORK, p);
-		print_status(get_delta_time(p), philo->id, FORK, p);
-		print_status(get_delta_time(p), philo->id, EAT, p);
+		add_print(p, get_print(get_delta_time(p), philo->id, FORK, p));
+		add_print(p, get_print(get_delta_time(p), philo->id, FORK, p));
+		add_print(p, get_print(get_delta_time(p), philo->id, EAT, p));
 		if (philo->nb_eat >= p->must_eat_nb - 1 && p->must_eat_nb != -1 && \
 													philo->sem_done == 0)
 		{
@@ -41,9 +41,9 @@ void	philo_life(t_p *p, t_philo *philo)
 		sem_post(p->forks);
 		sem_post(p->forks);
 		sem_post(p->fork_check);
-		print_status(get_delta_time(p), philo->id, SLEEP, p);
+		add_print(p, get_print(get_delta_time(p), philo->id, SLEEP, p));
 		wait_ms(p->tt_sleep, p);
-		print_status(get_delta_time(p), philo->id, THINK, p);
+		add_print(p, get_print(get_delta_time(p), philo->id, THINK, p));
 	}
 	exit(0);
 }

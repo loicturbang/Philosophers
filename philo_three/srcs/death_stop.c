@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/10 14:13:42 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/11 11:01:50 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	check_death2(t_p *p, t_philo *philo)
 	while (++i < p->nb_philos)
 		if (i != philo->id)
 			sem_post(p->phil[i]->sem_death);
-	print_status(get_delta_time(p), philo->id, DEAD, p);
+	add_print(p, get_print(get_delta_time(p), philo->id, DEAD, p));
 	sem_post(p->sem_dead);
 	sem_post(philo->sem_death);
 }

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/11 10:15:28 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/11 11:07:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int		init_structure(t_p *p)
 	i = -1;
 	p->life = 1;
 	p->start_time = 0;
+	p->to_print = NULL;
 	while (++i < p->nb_philos)
 	{
 		p->phil[i] = malloc(sizeof(t_philo));
@@ -49,6 +50,8 @@ int		create_check_threads(t_p *p, int i)
 		return (show_error(ERR_TH_CREAT));
 	if (pthread_create(&p->phil[i]->th_death, NULL, &check_death, \
 															p->phil[i]) != 0)
+		return (show_error(ERR_TH_CREAT));
+	if (pthread_create(&p->phil[i]->th_print, NULL, &init_print, p) != 0)
 		return (show_error(ERR_TH_CREAT));
 	if (pthread_join(p->phil[i]->th_eat, NULL) != 0)
 		return (show_error(ERR_TH_JOIN));

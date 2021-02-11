@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/11 10:18:05 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/11 11:06:04 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,16 @@
 # define ERR_MALLOC 4
 
 /*
+**	s_list
+*/
+
+typedef struct		s_list
+{
+	void			*content;
+	struct s_list	*next;
+}					t_list;
+
+/*
 ** s_philo
 */
 
@@ -58,6 +68,7 @@ typedef struct	s_philo
 	pthread_t			th_eat;
 	pthread_t			th_death;
 	pthread_t			th_u_death;
+	pthread_t			th_print;
 }				t_philo;
 
 /*
@@ -83,6 +94,7 @@ typedef struct	s_p
 	sem_t			*must_eat;
 	sem_t			*fork_check;
 	unsigned long	start_time;
+	struct s_list	*to_print;
 	int				life;
 }				t_p;
 
@@ -116,6 +128,8 @@ int				ft_atoi(const char *str);
 char			*ft_itoa(unsigned long num);
 char			*ft_strjoin(char const *s1, char const *s2);
 void			ft_putnbr_ul(unsigned long n);
+t_list			*ft_lstnew(void *content);
+void			ft_lstadd_back(t_list **alst, t_list *new);
 
 /*
 **		PARSING
@@ -128,9 +142,11 @@ int				parsing_argu(int argc, char **argv, t_p *philos);
 */
 
 int				argument_error(int error);
-void			print_status(unsigned long ms, int philo_id, int status, \
-																t_p *p);
+char			*get_print(unsigned long ms, int philo_id, int status, t_p *p);
 int				show_error(int error);
+int				add_print(t_p *p, char *str);
+void			print_lst(t_p *p);
+void			*init_print(void *arg);
 
 /*
 **		FREE
@@ -138,6 +154,7 @@ int				show_error(int error);
 
 int				free_back(t_p *p, int i);
 int				ft_free(t_p *p, int ret);
+void			free_print_list(t_p *p);
 
 /*
 **		TIME
