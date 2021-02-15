@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/15 14:40:52 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/15 14:45:58 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	print_death(t_p *p, t_philo *philo)
 	current_time = get_delta_time(p);
 	sem_wait(p->print);
 	print_status(current_time, philo->id, DEAD, p);
-	sem_wait(p->print);
 	sem_post(philo->sem_death);
 }
 
