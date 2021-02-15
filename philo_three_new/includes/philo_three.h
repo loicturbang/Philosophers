@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/15 10:17:22 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/15 10:48:51 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct	s_p
 	unsigned long	start_time;
 	struct s_list	*to_print;
 	int				life;
+	int				is_printing;
 }				t_p;
 
 /*

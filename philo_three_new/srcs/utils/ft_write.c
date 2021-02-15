@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:33:47 by user42            #+#    #+#             */
-/*   Updated: 2021/02/15 10:24:55 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/15 11:03:58 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	print_lst(t_p *p)
 
 	ptr = p->to_print;
 	sem_wait(p->print);
+	p->is_printing = 1;
 	if (p->life)
 	{
 		while (p->to_print)
@@ -54,6 +55,7 @@ void	print_lst(t_p *p)
 	free_print_list(p);
 	p->to_print = NULL;
 	sem_post(p->print);
+	p->is_printing = 0;
 }
 
 void	*init_print(void *arg)
