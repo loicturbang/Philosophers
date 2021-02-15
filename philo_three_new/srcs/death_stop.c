@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/15 10:27:44 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/15 11:02:08 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,20 @@ void	*update_must_eat(void *arg)
 void	print_death(t_p *p, t_philo *philo)
 {
 	int				i;
-	//char			*str;
+	char			*str;
 
 	i = -1;
 	sem_wait(p->sem_dead_print);
 	p->life = 0;
-	sem_wait(p->print); //obligé ou attendre usleep(500)
 	while (++i < p->nb_philos)
 		if (i != philo->id)
-			sem_post(p->phil[i]->sem_death);/*
+			sem_post(p->phil[i]->sem_death);
+	if (p->is_printing == 1)
+		sem_wait(p->print); //obligé ou attendre usleep(500)
 	str = get_print(get_delta_time(p), philo->id, DEAD, p);
 	write(1, str, ft_strlen(str));
-	free(str);	*/
+	free(str);
+	exit(0);	
 	//add_print(p, get_print(get_delta_time(p), philo->id, DEAD, p));
 	sem_post(philo->sem_death);
 }
@@ -59,7 +61,7 @@ void	*check_death(void *arg)
 	get_delta_time(p);
 	while (1)
 	{
-		if ((get_delta_time(p) - philo->last_eat) >= (unsigned long)p->tt_die)
+		if (p->life == 0 || (get_delta_time(p) - philo->last_eat) >= (unsigned long)p->tt_die)
 		{
 			print_death(p, philo);
 			return (NULL);
@@ -78,5 +80,10 @@ void	*update_death(void *arg)
 	p = philo->p;
 	sem_wait(philo->sem_death);
 	p->life = 0;
-	exit(0);
+	while (1)
+	{
+		if (p->is_printing == 0)
+			exit(0);
+		usleep(19);
+	}
 }
