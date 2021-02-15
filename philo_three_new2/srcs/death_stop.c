@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/15 12:46:23 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/15 13:36:28 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	*update_must_eat(void *arg)
 void	print_death(t_p *p, t_philo *philo)
 {
 	int				i;
+	unsigned long	current_time;
 
 	i = -1;
 	sem_wait(p->sem_dead_print);
@@ -41,9 +42,9 @@ void	print_death(t_p *p, t_philo *philo)
 		if (i != philo->id)
 			sem_post(p->phil[i]->sem_death);
 	}
+	current_time = get_delta_time(p);
 	sem_wait(p->print);
-	print_status(get_delta_time(p), philo->id, DEAD, p);
-	sem_post(p->print);
+	print_status(current_time, philo->id, DEAD, p);
 	sem_post(philo->sem_death);
 }
 
@@ -63,7 +64,7 @@ void	*check_death(void *arg)
 			print_death(p, philo);
 			return (NULL);
 		}
-		usleep(5);
+		usleep(19);
 	}
 	return (NULL);
 }
@@ -72,15 +73,17 @@ void	*update_death(void *arg)
 {
 	t_philo		*philo;
 	t_p			*p;
-
+	int			i;
+	
+	i = -1;
 	philo = (t_philo *)arg;
 	p = philo->p;
 	sem_wait(philo->sem_death);
 	p->life = 0;
 	while (1)
 	{
-		if (p->is_printing == 0)
+		if (p->is_printing == 0)	
 			exit(0);
-		usleep(19);
+		usleep(100);
 	}
 }
