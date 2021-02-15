@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:49 by user42            #+#    #+#             */
-/*   Updated: 2021/02/15 13:34:26 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/15 14:24:23 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ void	philo_life(t_p *p, t_philo *philo)
 		sem_wait(p->fork_check);
 		sem_wait(p->forks);
 		sem_wait(p->forks);
-		if (p->life)
-			sem_wait(p->print);
+		if (p->life == 0)
+			break ;
+		sem_wait(p->print);
 		p->is_printing = 1;
 		if (p->life)
 		{
