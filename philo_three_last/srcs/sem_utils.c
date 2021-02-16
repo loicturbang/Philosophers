@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:37:59 by user42            #+#    #+#             */
-/*   Updated: 2021/02/16 11:17:56 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/16 11:43:54 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	unlink_sem_philos(void)
 	sem_unlink("dead_print");
 	sem_unlink("fork_sync");
 	sem_unlink("print");
+	sem_unlink("must_eat");
 	sem_unlink("fork_check");
-	sem_unlink("add_list");
 }
 
 int		sem_thread_init(t_p *p)

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:49 by user42            #+#    #+#             */
-/*   Updated: 2021/02/16 11:24:59 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/16 12:34:32 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	philo_life(t_p *p, t_philo *philo)
 		wait_ms(p->tt_sleep, p);
 		add_print(p, get_print(get_delta_time(p), philo->id, THINK, p));
 	}
-	exit(0);
 }
 
 void	*init_philo(void *arg)
@@ -53,13 +52,15 @@ void	*init_philo(void *arg)
 	t_philo		*philo;
 	t_p			*p;
 	int			i;
-
+	
 	i = -1;
 	philo = (t_philo *)arg;
 	p = philo->p;
 	if (philo->id + 1 == p->nb_philos)
-	while (++i < (p->nb_philos * 3))
-		sem_post(p->sem_fork_sync);
+	{
+		while (++i < (p->nb_philos * 2))
+			sem_post(p->sem_fork_sync);
+	}
 	else
 		sem_wait(p->sem_fork_sync);
 	philo_life(p, philo);

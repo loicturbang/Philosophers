@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/16 11:24:38 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/16 12:49:18 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	*check_death(void *arg)
 	get_delta_time(p);
 	while (1)
 	{
+		usleep(500); //500 working
 		print_lst(p);
 		if ((get_delta_time(p) - philo->last_eat) >= (unsigned long)p->tt_die)
 		{
@@ -46,7 +47,6 @@ void	*check_death(void *arg)
 			sem_post(p->sem_dead);
 			return (NULL);
 		}
-		usleep(500);
 	}
 	return (NULL);
 }
