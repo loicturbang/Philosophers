@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/16 12:49:18 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/16 12:59:45 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	*check_death(void *arg)
 {
 	t_philo		*philo;
 	t_p			*p;
+	char		*str;
 
 	philo = (t_philo *)arg;
 	p = philo->p;
@@ -37,13 +38,16 @@ void	*check_death(void *arg)
 	get_delta_time(p);
 	while (1)
 	{
-		usleep(500); //500 working
+		usleep(100); //500 working
 		print_lst(p);
 		if ((get_delta_time(p) - philo->last_eat) >= (unsigned long)p->tt_die)
 		{
 			sem_wait(p->sem_dead_print);
-			add_print(p, get_print(get_delta_time(p), philo->id, DEAD, p));
-			print_lst(p);
+			add_print(p, get_print(get_delta_time(p), philo->id, DEAD, p));	
+			str = get_print(get_delta_time(p), philo->id, DEAD, p);
+			sem_wait(p->print);
+			write(1, str, ft_strlen(str));
+			free(str);
 			sem_post(p->sem_dead);
 			return (NULL);
 		}
