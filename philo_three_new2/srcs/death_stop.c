@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/15 13:36:28 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/15 14:45:58 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ void	*update_death(void *arg)
 	p->life = 0;
 	while (1)
 	{
-		if (p->is_printing == 0)	
+		if (p->is_printing == 0)
 			exit(0);
-		usleep(100);
+		usleep(500);
 	}
 }
