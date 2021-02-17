@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/17 13:59:55 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/17 15:01:21 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	*monitoring(void *arg)
 		usleep(100);
 		print_lst(p);
 		if ((get_delta_time(p) - philo->last_eat) >= (unsigned long)p->tt_die)
-			print_quit(p, philo);
+			return (print_quit(p, philo));
 		if (philo->nb_eat >= p->must_eat_nb && p->must_eat_nb != -1)
 		{
 			print_lst(p);

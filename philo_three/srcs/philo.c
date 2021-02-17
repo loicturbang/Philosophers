@@ -6,11 +6,17 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:49 by user42            #+#    #+#             */
-/*   Updated: 2021/02/17 13:54:15 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/17 14:47:45 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_three.h"
+
+/*
+** sem_wait -> remove 1 from semaphore (take 1 fork)
+** sem_wait 2 times (2 forks)
+** sem_post --> give fork back
+*/
 
 void	philo_eat(t_p *p, t_philo *philo)
 {
@@ -31,12 +37,6 @@ void	philo_eat(t_p *p, t_philo *philo)
 	if (philo->nb_eat >= p->must_eat_nb && p->must_eat_nb != -1)
 		sem_wait(p->can_eat);
 }
-
-/*
-** sem_wait -> remove 1 from semaphore (take 1 fork)
-** sem_wait 2 times (2 forks)
-** sem_post --> give fork back
-*/
 
 void	philo_life(t_p *p, t_philo *philo)
 {

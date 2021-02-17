@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:00 by user42            #+#    #+#             */
-/*   Updated: 2021/02/17 13:51:42 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/17 14:17:46 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		main(int argc, char **argv)
 		return (argument_error(ARGU_ERROR));
 	p = malloc(sizeof(t_p));
 	if (!p)
-		return (ERR_MALLOC);
+		return (show_error(ERR_MALLOC));
 	if (init_parse(p, argc, argv) != 0)
 		return (0);
 	init_create_threads(p);
