@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 09:49:53 by user42            #+#    #+#             */
-/*   Updated: 2021/02/17 08:48:41 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/16 14:24:18 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,15 @@
 
 unsigned long		get_ms_time(struct timeval time)
 {
-	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
+	unsigned long ms;
+	unsigned long msc;
+	
+	msc = time.tv_usec / 1000;
+	if (msc * 1000 != (unsigned long)time.tv_usec)
+		ms = msc + 1;
+	else
+		ms = msc;
+	return ((time.tv_sec * 1000) + ms);
 }
 
 unsigned long		get_delta_time(t_p *p)
@@ -36,13 +44,13 @@ void				wait_ms(unsigned long ms_wait, t_p *p)
 {
 	unsigned long start_time;
 	unsigned long actual_time;
-
+	
 	start_time = get_delta_time(p);
 	actual_time = start_time;
-	usleep((ms_wait * 0.8) * 1000);
+	usleep((ms_wait * 0.9) * 1000);
 	while (actual_time - start_time < ms_wait)
 	{
 		actual_time = get_delta_time(p);
-		usleep(300);
+		usleep(200);
 	}
 }
