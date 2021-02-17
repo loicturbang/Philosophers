@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/17 13:32:19 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/17 13:51:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		init_structure(t_p *p)
 
 int		create_check_threads(t_p *p, int i)
 {
-	if (pthread_create(&p->phil[i]->th_death, NULL, &check_death, \
+	if (pthread_create(&p->phil[i]->th_death, NULL, &monitoring, \
 															p->phil[i]) != 0)
 		return (show_error(ERR_TH_CREAT));
 	init_philo(p->phil[i]);
@@ -68,6 +68,22 @@ int		create_threads(t_p *p)
 	return (0);
 }
 
+int		quit_free(t_p *p)
+{
+	int i;
+
+	sem_close(p->sem_dead);
+	i = -1;
+	while (++i < p->nb_philos)
+		kill(p->phil[i]->pid, SIGKILL);
+	i = -1;
+	while (++i < p->nb_philos * 2)
+		sem_post(p->forks);
+	sem_close(p->forks);
+	ft_free(p, 0);
+	return (0);
+}
+
 int		init_create_threads(t_p *p)
 {
 	int i;
@@ -90,14 +106,5 @@ int		init_create_threads(t_p *p)
 	i = -1;
 	while (++i < p->nb_philos)
 		sem_wait(p->sem_dead);
-	sem_close(p->sem_dead);
-	i = -1;
-	while (++i < p->nb_philos)
-		kill(p->phil[i]->pid, SIGKILL);
-	i = -1;
-	while (++i < p->nb_philos * 2)
-		sem_post(p->forks);
-	sem_close(p->forks);
-	ft_free(p, 0);
-	return (0);
+	return (quit_free(p));
 }

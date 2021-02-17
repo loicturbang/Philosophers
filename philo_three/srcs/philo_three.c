@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:00 by user42            #+#    #+#             */
-/*   Updated: 2021/02/17 13:27:22 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/17 13:51:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		init_parse(t_p *p, int argc, char **argv)
 {
 	int error;
-	
+
 	error = 0;
 	if (parsing_argu(argc, argv, p) == NO_NUM_INT)
 		error = NO_NUM_INT;

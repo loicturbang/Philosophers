@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:26:54 by user42            #+#    #+#             */
-/*   Updated: 2021/02/17 13:35:18 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/17 13:38:45 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,6 @@ int				show_error(int error)
 		ft_putstr_fd("Error: sem_open failed\n", 2);
 	else if (error == ERR_TH_CREAT)
 		ft_putstr_fd("Error: pthread_create failed\n", 2);
-	else if (error == ERR_TH_JOIN)
-		ft_putstr_fd("Error: pthread_join failed\n", 2);
 	else if (error == ERR_MALLOC)
 		ft_putstr_fd("Error: pthread_join failed\n", 2);
 	return (error);

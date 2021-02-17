@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/17 13:19:51 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/17 13:55:33 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,20 @@
 # define TOO_LOW 3
 # define BAD_PHILO 4
 # define BAD_MS 5
-# define INIT 1
-# define DELTA 2
-# define SEM_DEATH 1
 # define ERR_FORK 1
 # define ERR_SEM_OPEN 2
 # define ERR_TH_CREAT 3
-# define ERR_TH_JOIN 4
 # define ERR_MALLOC 4
 
 /*
 **	s_list
 */
 
-typedef struct		s_list
+typedef struct	s_list
 {
 	void			*content;
 	struct s_list	*next;
-}					t_list;
+}				t_list;
 
 /*
 ** s_philo
@@ -59,9 +55,8 @@ typedef struct	s_philo
 	int					nb_eat;
 	int					id;
 	unsigned long		last_eat;
-	int					pid;
+	pid_t				pid;
 	struct s_p			*p;
-	pthread_t			th_eat;
 	pthread_t			th_death;
 }				t_philo;
 
@@ -95,11 +90,10 @@ typedef struct	s_p
 **		PHILO
 */
 
-void			*init_check_death(void *arg);
 void			*init_philo(void *arg);
 void			*update_must_eat(void *arg);
 int				init_create_threads(t_p *p);
-void			*check_death(void *arg);
+void			*monitoring(void *arg);
 
 /*
 **		SEM
@@ -118,7 +112,6 @@ void			ft_putstr_fd(char *str, int fd);
 int				ft_atoi(const char *str);
 char			*ft_itoa(unsigned long num);
 char			*ft_strjoin(char const *s1, char const *s2);
-void			ft_putnbr_ul(unsigned long n);
 t_list			*ft_lstnew(void *content);
 void			ft_lstadd_back(t_list **alst, t_list *new);
 
