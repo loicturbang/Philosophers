@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/11 12:51:58 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/17 10:30:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,6 @@ int		init_structure(t_p *p)
 		p->phil[i]->id = i;
 		p->phil[i]->last_eat = 0;
 		p->phil[i]->nb_eat = 0;
-		p->phil[i]->sem_done = 0;
-		if (create_sem_philos(p, i) != 0)
-			return (i);
 	}
 	if (sem_thread_init(p) != 0)
 		return (-1);
@@ -42,23 +39,13 @@ int		init_structure(t_p *p)
 }
 
 int		create_check_threads(t_p *p, int i)
-{
+{/*
 	if (pthread_create(&p->phil[i]->th_eat, NULL, &init_philo, p->phil[i]) != 0)
-		return (show_error(ERR_TH_CREAT));
-	if (pthread_create(&p->phil[i]->th_u_death, NULL, &update_death, \
-															p->phil[i]) != 0)
-		return (show_error(ERR_TH_CREAT));
+		return (show_error(ERR_TH_CREAT));*/
 	if (pthread_create(&p->phil[i]->th_death, NULL, &check_death, \
 															p->phil[i]) != 0)
 		return (show_error(ERR_TH_CREAT));
-	if (pthread_create(&p->phil[i]->th_print, NULL, &init_print, p->phil[i]) != 0)
-		return (show_error(ERR_TH_CREAT));
-	if (pthread_join(p->phil[i]->th_eat, NULL) != 0)
-		return (show_error(ERR_TH_JOIN));
-	if (pthread_join(p->phil[i]->th_u_death, NULL) != 0)
-		return (show_error(ERR_TH_JOIN));
-	if (pthread_join(p->phil[i]->th_death, NULL) != 0)
-		return (show_error(ERR_TH_JOIN));
+	init_philo(p->phil[i]);
 	return (0);
 }
 
@@ -67,7 +54,7 @@ int		create_threads(t_p *p)
 	int i;
 
 	i = -1;
-	while (++i < p->nb_philos && p->life)
+	while (++i < p->nb_philos)
 	{
 		p->phil[i]->pid = fork();
 		if (p->phil[i]->pid < 0)
@@ -78,14 +65,8 @@ int		create_threads(t_p *p)
 				return (-1);
 			exit(0);
 		}
-		usleep(5);
+		usleep(100);
 	}
-	if (p->must_eat_nb != -1)
-		if (pthread_create(&p->th_must_eat, NULL, &update_must_eat, p) != 0)
-			return (show_error(ERR_TH_CREAT));
-	i = -1;
-	while (++i < p->nb_philos && p->life)
-		waitpid(p->phil[i]->pid, 0, 0);
 	return (0);
 }
 
@@ -110,6 +91,9 @@ int		init_create_threads(t_p *p)
 	}
 	sem_wait(p->sem_dead);
 	sem_close(p->sem_dead);
+	i = -1;
+	while (++i < p->nb_philos)
+		kill(p->phil[i]->pid, SIGKILL);
 	i = -1;
 	while (++i < p->nb_philos * 2)
 		sem_post(p->forks);

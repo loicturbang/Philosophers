@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 09:49:53 by user42            #+#    #+#             */
-/*   Updated: 2021/02/10 10:21:29 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/17 08:48:41 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void				wait_ms(unsigned long ms_wait, t_p *p)
 	usleep((ms_wait * 0.8) * 1000);
 	while (actual_time - start_time < ms_wait)
 	{
-		usleep(250);
 		actual_time = get_delta_time(p);
+		usleep(300);
 	}
 }

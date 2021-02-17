@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/11 13:19:59 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/17 10:25:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,13 @@ typedef struct		s_list
 
 typedef struct	s_philo
 {
-	int					status;
 	int					nb_eat;
 	int					id;
-	int					sem_done;
 	unsigned long		last_eat;
-	struct timeval		time_start;
-	struct timeval		time_actual;
 	int					pid;
-	sem_t				*sem_death;
 	struct s_p			*p;
 	pthread_t			th_eat;
 	pthread_t			th_death;
-	pthread_t			th_u_death;
-	pthread_t			th_print;
 }				t_philo;
 
 /*
@@ -89,10 +82,9 @@ typedef struct	s_p
 	sem_t			*sem_dead;
 	sem_t			*sem_fork_sync;
 	sem_t			*sem_dead_print;
-	sem_t			*add_list;
 	sem_t			*print;
-	sem_t			*must_eat;
 	sem_t			*fork_check;
+	sem_t			*can_eat;
 	unsigned long	start_time;
 	struct s_list	*to_print;
 	int				life;
@@ -106,7 +98,6 @@ void			*init_check_death(void *arg);
 void			*init_philo(void *arg);
 void			*update_must_eat(void *arg);
 int				init_create_threads(t_p *p);
-void			*update_death(void *arg);
 void			*check_death(void *arg);
 
 /*
@@ -114,7 +105,6 @@ void			*check_death(void *arg);
 */
 
 void			unlink_sem_philos(void);
-int				create_sem_philos(t_p *p, int i);
 int				sem_thread_init(t_p *p);
 
 /*
@@ -146,7 +136,6 @@ char			*get_print(unsigned long ms, int philo_id, int status, t_p *p);
 int				show_error(int error);
 int				add_print(t_p *p, char *str);
 void			print_lst(t_p *p);
-void			*init_print(void *arg);
 
 /*
 **		FREE
