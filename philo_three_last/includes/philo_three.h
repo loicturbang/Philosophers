@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/16 11:18:04 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/17 09:21:15 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct	s_p
 	sem_t			*print;
 	sem_t			*must_eat;
 	sem_t			*fork_check;
+	sem_t			*can_eat;
 	unsigned long	start_time;
 	struct s_list	*to_print;
 	int				life;

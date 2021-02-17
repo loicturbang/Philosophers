@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:37:59 by user42            #+#    #+#             */
-/*   Updated: 2021/02/16 11:43:54 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/17 09:22:51 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	unlink_sem_philos(void)
 	sem_unlink("print");
 	sem_unlink("must_eat");
 	sem_unlink("fork_check");
+	sem_unlink("can_eat");
 }
 
 int		sem_thread_init(t_p *p)
@@ -45,6 +46,9 @@ int		sem_thread_init(t_p *p)
 		return (show_error(ERR_SEM_OPEN));
 	p->fork_check = sem_open("fork_check", O_CREAT, 0600, p->nb_philos / 2);
 	if (p->fork_check == SEM_FAILED)
+		return (show_error(ERR_SEM_OPEN));
+	p->can_eat = sem_open("can_eat", O_CREAT, 0600, 0);
+	if (p->can_eat == SEM_FAILED)
 		return (show_error(ERR_SEM_OPEN));
 	return (0);
 }

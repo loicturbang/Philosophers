@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/16 12:59:45 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/17 09:23:18 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	*check_death(void *arg)
 		print_lst(p);
 		if ((get_delta_time(p) - philo->last_eat) >= (unsigned long)p->tt_die)
 		{
+			p->life = 0;
 			sem_wait(p->sem_dead_print);
-			add_print(p, get_print(get_delta_time(p), philo->id, DEAD, p));	
 			str = get_print(get_delta_time(p), philo->id, DEAD, p);
 			sem_wait(p->print);
 			write(1, str, ft_strlen(str));
