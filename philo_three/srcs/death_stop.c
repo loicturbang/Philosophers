@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/17 10:30:25 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/17 10:48:48 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	*check_death(void *arg)
 	t_philo		*philo;
 	t_p			*p;
 	char		*str;
+	int			i;
 
 	philo = (t_philo *)arg;
 	p = philo->p;
@@ -34,15 +35,17 @@ void	*check_death(void *arg)
 			sem_wait(p->print);
 			write(1, str, ft_strlen(str));
 			free(str);
-			sem_post(p->sem_dead);
+			i = -1;
+			while (++i < p->nb_philos)
+				sem_post(p->sem_dead);
 			return (NULL);
 		}
 		if (philo->nb_eat >= p->must_eat_nb && p->must_eat_nb != -1)
 		{
 			print_lst(p);
-			sem_wait(p->print);
-			sem_post(p->print);
-			exit(0);
+			//sem_wait(p->print);
+			//sem_post(p->print);
+			sem_post(p->sem_dead);
 		}
 	}
 	return (NULL);
