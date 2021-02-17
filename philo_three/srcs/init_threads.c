@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/17 10:45:44 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/17 13:32:19 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,7 @@ int		init_structure(t_p *p)
 }
 
 int		create_check_threads(t_p *p, int i)
-{/*
-	if (pthread_create(&p->phil[i]->th_eat, NULL, &init_philo, p->phil[i]) != 0)
-		return (show_error(ERR_TH_CREAT));*/
+{
 	if (pthread_create(&p->phil[i]->th_death, NULL, &check_death, \
 															p->phil[i]) != 0)
 		return (show_error(ERR_TH_CREAT));

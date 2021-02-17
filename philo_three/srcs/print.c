@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:26:54 by user42            #+#    #+#             */
-/*   Updated: 2021/02/17 13:29:41 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/17 13:33:39 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,52 +40,16 @@ char			*get_print(unsigned long ms, int philo_id, int status, t_p *p)
 
 	(void)p;
 	str = ft_itoa(ms);
-	str2 = ft_strjoin(str, "ms ");
-	free(str);
-	str = ft_itoa((unsigned long)(philo_id + 1));
-	tmp = ft_strjoin(str2, str);
+	str2 = ft_itoa((unsigned long)(philo_id + 1));
+	tmp = ft_strjoin(str, str2);
 	free(str2);
 	free(str);
 	str2 = get_status(status);
 	str = ft_strjoin(tmp, str2);
 	free(tmp);
 	free(str2);
-	//write(1, str, ft_strlen(str));
 	return (str);
 }
-
-/*
-char			*get_status(int status)
-{
-	if (status == SLEEP)
-		ft_putstr_fd(" is sleeping\n", 1);
-	else if (status == EAT)
-		ft_putstr_fd(" is eating\n", 1);
-	else if (status == FORK)
-		ft_putstr_fd(" has taken a fork\n", 1);
-	else if (status == THINK)
-		ft_putstr_fd(" is thinking\n", 1);
-	else if (status == DEAD)
-		ft_putstr_fd(" died\n", 1);
-	return (NULL); //remove
-}
-
-void			print_status(unsigned long ms, int philo_id, int status, \
-															t_p *p)
-{
-	if (p->life || status == DEAD)
-	{
-		if (status != DEAD)
-			sem_wait(p->print);
-		ft_putnbr_ul(ms);
-		ft_putstr_fd(" ", 1);
-		ft_putnbr_ul((unsigned long)(philo_id + 1));
-		get_status(status);
-		if (status != DEAD)
-			sem_post(p->print);
-	}
-}
-*/
 
 int				argument_error(int error)
 {
