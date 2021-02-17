@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/17 10:25:01 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/17 13:19:51 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <sys/time.h>
 # include <semaphore.h>
 # include <fcntl.h>
-# include <sys/wait.h>
 # include <signal.h>
 
 # define EAT 0
@@ -30,6 +29,8 @@
 # define ARGU_ERROR 1
 # define NO_NUM_INT 2
 # define TOO_LOW 3
+# define BAD_PHILO 4
+# define BAD_MS 5
 # define INIT 1
 # define DELTA 2
 # define SEM_DEATH 1

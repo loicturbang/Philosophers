@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:26:54 by user42            #+#    #+#             */
-/*   Updated: 2021/02/11 11:17:05 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/17 13:29:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,30 +91,32 @@ int				argument_error(int error)
 {
 	if (error == ARGU_ERROR)
 	{
-		ft_putstr_fd("\nBad number of arguments\nUse ", STDERR_FILENO);
-		ft_putstr_fd("./philo_one [nb_philo] [tt_die]", STDERR_FILENO);
-		ft_putstr_fd(" [tt_eat] [tt_sleep] (opt. nb eat)\n", STDERR_FILENO);
+		ft_putstr_fd("Bad number of arguments\nUse ", 2);
+		ft_putstr_fd("./philo_one [nb_philo] [tt_die]", 2);
+		ft_putstr_fd(" [tt_eat] [tt_sleep] (opt. nb eat)\n", 2);
 	}
 	else if (error == NO_NUM_INT)
-		ft_putstr_fd("\nError - Use only numeric characters as arguments\n", \
-															STDERR_FILENO);
+		ft_putstr_fd("Error - Use only numeric characters as arguments\n", 2);
 	else if (error == TOO_LOW)
-		ft_putstr_fd("\nError - Use only num > 0 for nb_philo & nb_eat\n", \
-															STDERR_FILENO);
+		ft_putstr_fd("Error - Use only num > 1 for nb_philo | > 0 nb_eat\n", 2);
+	else if (error == BAD_PHILO)
+		ft_putstr_fd("Error - 200 is max number of philos\n", 2);
+	else if (error == BAD_MS)
+		ft_putstr_fd("Error - 60 is minimum number for ms\n", 2);
 	return (error);
 }
 
 int				show_error(int error)
 {
 	if (error == ERR_FORK)
-		ft_putstr_fd("Error: fork failed\n", STDERR_FILENO);
+		ft_putstr_fd("Error: fork failed\n", 2);
 	else if (error == ERR_SEM_OPEN)
-		ft_putstr_fd("Error: sem_open failed\n", STDERR_FILENO);
+		ft_putstr_fd("Error: sem_open failed\n", 2);
 	else if (error == ERR_TH_CREAT)
-		ft_putstr_fd("Error: pthread_create failed\n", STDERR_FILENO);
+		ft_putstr_fd("Error: pthread_create failed\n", 2);
 	else if (error == ERR_TH_JOIN)
-		ft_putstr_fd("Error: pthread_join failed\n", STDERR_FILENO);
+		ft_putstr_fd("Error: pthread_join failed\n", 2);
 	else if (error == ERR_MALLOC)
-		ft_putstr_fd("Error: pthread_join failed\n", STDERR_FILENO);
+		ft_putstr_fd("Error: pthread_join failed\n", 2);
 	return (error);
 }
