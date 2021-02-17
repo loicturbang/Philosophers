@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/17 09:23:18 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/17 10:15:55 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	*update_must_eat(void *arg)
 	i = -1;
 	while (++i < p->nb_philos)
 		sem_wait(p->must_eat);
-	print_lst(p);
+	p->life = 0;
+	usleep(300);
 	sem_post(p->sem_dead);
 	return (NULL);
 }
