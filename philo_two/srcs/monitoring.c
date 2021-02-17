@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/17 17:13:14 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/17 17:34:51 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	*monitoring(void *arg)
 	int			i;
 
 	p = (t_p *)arg;
-	sem_wait(p->sem_fork_sync);
+	sem_wait(p->sem_sync);
 	get_delta_time(p);
 	while (1)
 	{

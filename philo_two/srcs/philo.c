@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:49 by user42            #+#    #+#             */
-/*   Updated: 2021/02/17 15:04:31 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/17 17:34:51 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ void	*init_philo(void *arg)
 	if (philo->id + 1 == p->nb_philos)
 	{
 		while (++i < p->nb_philos + 1)
-			sem_post(p->sem_fork_sync);
+			sem_post(p->sem_sync);
 	}
 	else
-		sem_wait(p->sem_fork_sync);
+		sem_wait(p->sem_sync);
 	get_delta_time(p);
 	philo_life(p, philo);
 	return (NULL);
