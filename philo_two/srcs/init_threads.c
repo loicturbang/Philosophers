@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/08 16:18:53 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/17 14:57:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,16 @@ int		init_structure(t_p *p)
 	{
 		p->phil[i] = malloc(sizeof(t_philo));
 		if (!p->phil[i])
+		{
+			show_error(ERR_MALLOC);
 			return (i);
+		}
 		p->phil[i]->p = p;
 		p->phil[i]->id = i;
 		p->phil[i]->last_eat = 0;
 		p->phil[i]->nb_eat = 0;
 	}
-	sem_unlink("forks");
-	sem_unlink("dead");
-	p->forks = sem_open("forks", O_CREAT, 0600, p->nb_philos);
-	if (p->forks == SEM_FAILED)
-		return (-1);
-	p->sem_dead = sem_open("dead", O_CREAT, 0600, 0);
-	if (p->sem_dead == SEM_FAILED)
+	if (ft_sem_init(p) != 0)
 		return (-1);
 	return (-2);
 }
@@ -44,16 +41,15 @@ int		create_threads(t_p *p)
 	int i;
 
 	i = -1;
-	get_delta_time();
 	while (++i < p->nb_philos)
 	{
 		if (pthread_create(&p->phil[i]->th, NULL, &init_philo, \
 												p->phil[i]) != 0)
-			return (-1);
-		usleep(5);
+			return (show_error(ERR_TH_CREAT));
+		usleep(19);
 	}
-	if (pthread_create(&p->th_death, NULL, &init_check_death, p) != 0)
-		return (-1);
+	if (pthread_create(&p->th_death, NULL, &monitoring, p) != 0)
+		return (show_error(ERR_TH_CREAT));
 	return (0);
 }
 
@@ -66,7 +62,7 @@ int		init_create_threads(t_p *p)
 	if (error != -2)
 	{
 		if (error == -1)
-			ft_free(p, MALLOC_ERROR);
+			ft_free(p, ERR_MALLOC);
 		else
 			free_back(p, error);
 		return (-1);

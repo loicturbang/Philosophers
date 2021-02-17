@@ -1,53 +1,58 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   death_stop.c                                       :+:      :+:    :+:   */
+/*   monitoring.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/08 14:16:19 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/17 15:14:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_two.h"
 
-int		check_eat_death(t_p *p, int *finish_eat, int i)
+void	*print_quit(t_p *p, t_philo *philo)
 {
-	if (p->must_eat_nb != -1 && (p->phil[i]->nb_eat >= p->must_eat_nb))
-		(*finish_eat)++;
-	if (*finish_eat == p->nb_philos)
-	{
-		p->life = 0;
-		sem_post(p->sem_dead);
-		return (1);
-	}
-	if ((get_delta_time() - p->phil[i]->last_eat) >= (unsigned long)p->tt_die)
-	{
-		p->life = 0;
-		print_status(get_delta_time(), p->phil[i]->id, DEAD, p);
-		sem_post(p->sem_dead);
-		return (1);
-	}
-	return (0);
+	char	*str;
+
+	p->life = 0;
+	sem_wait(p->sem_dead_print);
+	str = get_print(get_delta_time(p), philo->id, DEAD, p);
+	sem_wait(p->print);
+	write(1, str, ft_strlen(str));
+	free(str);
+	free_print_list(p);
+	sem_post(p->sem_dead);
+	return (NULL);
 }
 
-void	*init_check_death(void *arg)
+void	*monitoring(void *arg)
 {
 	t_p			*p;
 	int			i;
-	int			finish_eat;
 
 	p = (t_p *)arg;
+	sem_wait(p->sem_fork_sync);
+	get_delta_time(p);
 	while (1)
 	{
 		i = -1;
-		finish_eat = 0;
+		usleep(100);
+		print_lst(p);
 		while (p->phil[++i] && i < p->nb_philos)
 		{
-			if (check_eat_death(p, &finish_eat, i) == 1)
-				return (NULL);
+			if ((get_delta_time(p) - p->phil[i]->last_eat) >= \
+											(unsigned long)p->tt_die)
+				return (print_quit(p, p->phil[i]));
 			usleep(19);
+		}
+		if (p->finish_eat >= p->must_eat_nb && p->must_eat_nb != -1)
+		{
+			print_lst(p);
+			free_print_list(p);
+			sem_post(p->sem_dead);
+			return (NULL);
 		}
 	}
 	return (NULL);

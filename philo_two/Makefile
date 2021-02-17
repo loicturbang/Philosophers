@@ -6,14 +6,14 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/27 15:33:30 by user42            #+#    #+#              #
-#    Updated: 2021/02/08 14:40:03 by user42           ###   ########.fr        #
+#    Updated: 2021/02/17 15:12:34 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS		= $(addprefix srcs/, philo_two.c print.c parsing.c ft_time.c \
-				philo.c death_stop.c init_threads.c ft_free.c)
+				philo.c monitoring.c init_threads.c ft_free.c sem_utils.c)
 UTILS		= $(addprefix srcs/utils/, utils.c ft_atoi.c ft_itoa.c \
-				ft_strjoin.c)
+				ft_strjoin.c ft_write.c ft_lst.c)
 
 PHILO		=  $(SRCS)			\
 			   $(UTILS)			\
