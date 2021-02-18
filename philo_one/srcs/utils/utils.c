@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:44:40 by user42            #+#    #+#             */
-/*   Updated: 2021/02/08 14:10:30 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/18 08:42:21 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ char			*ft_strdup(const char *src)
 	unsigned int		size;
 
 	i = 0;
+	if (!src)
+		return (NULL);
 	size = ft_strlen(src);
 	str = malloc(sizeof(char) * (size + 1));
 	if (!str)
