@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:49 by user42            #+#    #+#             */
-/*   Updated: 2021/02/17 18:08:41 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/18 10:27:01 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	philo_eat(t_p *p, t_philo *philo)
 	philo->nb_eat++;
 	if (philo->nb_eat >= p->must_eat_nb && p->must_eat_nb != -1)
 	{
+		philo->pause = 1;
 		p->finish_eat += 1;
 		pthread_mutex_lock(&p->can_eat);
 	}

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/18 09:14:20 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/18 10:27:33 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ void	*monitoring(void *arg)
 		while (p->phil[++i] && i < p->nb_philos)
 		{
 			if ((get_delta_time(p) - p->phil[i]->last_eat) >= \
-											(unsigned long)p->tt_die)
+					(unsigned long)p->tt_die && p->phil[i]->pause == 0)
 				return (print_quit(p, p->phil[i]));
 			usleep(19);
 		}
-		if (p->finish_eat >= p->must_eat_nb && p->must_eat_nb != -1)
+		if (p->finish_eat >= p->nb_philos && p->must_eat_nb != -1)
 			return (print_eat_quit(p));
 	}
 	return (NULL);

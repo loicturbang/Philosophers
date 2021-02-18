@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/18 09:53:25 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/18 10:26:50 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int		init_structure(t_p *p)
 		p->phil[i]->id = i;
 		p->phil[i]->last_eat = 0;
 		p->phil[i]->nb_eat = 0;
+		p->phil[i]->pause = 0;
 	}
 	if (mutex_init(p) != 0)
 		return (-1);
