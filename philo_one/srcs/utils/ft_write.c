@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:33:47 by user42            #+#    #+#             */
-/*   Updated: 2021/02/17 18:11:32 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/18 08:37:35 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	print_lst(t_p *p)
 {
 	void	*ptr;
 
-	ptr = p->to_print;
 	pthread_mutex_lock(&p->print);
+	ptr = p->to_print;
 	while (p->to_print)
 	{
 		write(1, (char *)p->to_print->content, \
