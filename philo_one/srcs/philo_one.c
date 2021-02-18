@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:00 by user42            #+#    #+#             */
-/*   Updated: 2021/02/17 17:23:09 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/18 09:49:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		init_parse(t_p *p, int argc, char **argv)
 	if ((p->must_eat_nb <= 0 && argc == 6) || p->nb_philos <= 1)
 		error = TOO_LOW;
 	if (p->nb_philos > 200)
-		error = TOO_LOW;
+		error = BAD_PHILO;
 	if (p->tt_die < 60 || p->tt_eat < 60 || p->tt_sleep < 60)
 		error = BAD_MS;
 	if (error != 0)
