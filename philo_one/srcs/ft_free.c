@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 13:54:50 by user42            #+#    #+#             */
-/*   Updated: 2021/02/17 18:12:05 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/18 09:12:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int		free_back(t_p *p, int i)
 		free(p->phil[i]);
 	}
 	free(p->phil);
-	pthread_mutex_destroy(&p->mutex_dead);
 	return (0);
 }
 
@@ -34,7 +33,7 @@ int		ft_free(t_p *p, int ret)
 	free(p->phil);
 	return (ret);
 }
-
+/*
 void	free_print_list(t_p *p)
 {
 	t_list *lst;
@@ -46,4 +45,4 @@ void	free_print_list(t_p *p)
 		p->to_print = p->to_print->next;
 		free(lst);
 	}
-}
+}*/

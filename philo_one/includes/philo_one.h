@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/17 18:10:54 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/18 09:12:49 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ char			*ft_itoa(unsigned long num);
 char			*ft_strjoin(char const *s1, char const *s2);
 t_list			*ft_lstnew(void *content);
 void			ft_lstadd_back(t_list **alst, t_list *new);
+void			ft_lstclear(t_list **lst);
 
 /*
 **		PARSING
@@ -125,7 +126,7 @@ void			print_lst(t_p *p);
 
 int				free_back(t_p *p, int i);
 int				ft_free(t_p *p, int ret);
-void			free_print_list(t_p *p);
+//void			free_print_list(t_p *p);
 
 /*
 **		TIME

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:33:47 by user42            #+#    #+#             */
-/*   Updated: 2021/02/18 08:37:35 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/18 09:13:53 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	print_lst(t_p *p)
 		p->to_print = p->to_print->next;
 	}
 	p->to_print = ptr;
-	free_print_list(p);
-	p->to_print = NULL;
+	ft_lstclear(&p->to_print);
 	pthread_mutex_unlock(&p->print);
 }

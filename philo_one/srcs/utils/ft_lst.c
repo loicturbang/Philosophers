@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:27:11 by user42            #+#    #+#             */
-/*   Updated: 2021/02/17 18:09:50 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/18 09:12:33 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,31 @@ t_list		*ft_lstnew(void *content)
 	new->content = content;
 	new->next = NULL;
 	return (new);
+}
+
+void		ft_lstdelone(t_list *lst)
+{
+	if (lst)
+	{
+		free(lst->content);
+		free(lst);
+	}
+}
+
+void		ft_lstclear(t_list **lst)
+{
+	t_list *temp;
+	t_list *next;
+
+	temp = *lst;
+	if (lst)
+	{
+		while (temp)
+		{
+			next = temp->next;
+			ft_lstdelone(temp);
+			temp = next;
+		}
+		*lst = NULL;
+	}
 }
