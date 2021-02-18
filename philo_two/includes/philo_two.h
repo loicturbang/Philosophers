@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:27:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/18 09:32:23 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/18 10:51:03 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct	s_philo
 	int					status;
 	int					nb_eat;
 	int					id;
+	int					pause;
 	unsigned long		last_eat;
 	pthread_t			th;
 	struct s_p			*p;
