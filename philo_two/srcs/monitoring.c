@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 12:33:46 by user42            #+#    #+#             */
-/*   Updated: 2021/02/17 17:34:51 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/18 09:35:34 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*print_quit(t_p *p, t_philo *philo)
 	sem_wait(p->print);
 	write(1, str, ft_strlen(str));
 	free(str);
-	free_print_list(p);
+	ft_lstclear(&p->to_print);
 	sem_post(p->sem_dead);
 	return (NULL);
 }
@@ -30,7 +30,7 @@ void	*print_quit(t_p *p, t_philo *philo)
 void	*print_eat_quit(t_p *p)
 {
 	print_lst(p);
-	free_print_list(p);
+	ft_lstclear(&p->to_print);
 	sem_post(p->sem_dead);
 	return (NULL);
 }
