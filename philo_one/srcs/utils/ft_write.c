@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:33:47 by user42            #+#    #+#             */
-/*   Updated: 2021/02/18 09:13:53 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/18 09:27:53 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,17 @@ int		add_print(t_p *p, char *str)
 
 void	print_lst(t_p *p)
 {
-	void	*ptr;
+	t_list	**ptr;
 
 	pthread_mutex_lock(&p->print);
-	ptr = p->to_print;
+	ptr = &p->to_print;
 	while (p->to_print)
 	{
 		write(1, (char *)p->to_print->content, \
 									ft_strlen((char *)p->to_print->content));
 		p->to_print = p->to_print->next;
 	}
-	p->to_print = ptr;
+	p->to_print = *ptr;
 	ft_lstclear(&p->to_print);
 	pthread_mutex_unlock(&p->print);
 }
