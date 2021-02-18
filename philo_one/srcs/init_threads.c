@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 13:23:09 by user42            #+#    #+#             */
-/*   Updated: 2021/02/18 10:26:50 by lturbang         ###   ########.fr       */
+/*   Updated: 2021/02/18 11:08:13 by lturbang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	init_structure2(int *i, t_p *p)
 	p->life = 1;
 	p->start_time = 0;
 	p->to_print = NULL;
+	p->finish_eat = 0;
 }
 
 int		init_structure(t_p *p)
